@@ -7,6 +7,8 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
 
+    <audio id="flip-sound" src="{{ asset('./assets/page-flip.mp3') }}" preload="auto"></audio>
+
     <style>
         * {
             box-sizing: border-box;
@@ -69,19 +71,23 @@
         }
 
         .page {
-            background-color: #ffffff;
-            /* إضافة حواف ناعمة وظل واقعي للورقة */
+            background-color: #000000;
             border-radius: 8px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             overflow: hidden;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .page img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* يضمن ظهور الصورة كاملة بدون قص */
-            background-color: #fff;
-            pointer-events: none; /* لمنع ظهور قائمة حفظ الصورة عند اللمس */
+            object-fit: contain;
+            object-position: center;
+            background-color: transparent; /* جعل خلفية الصورة شفافة أيضاً */
+            pointer-events: none;
         }
 
         /* تلميح السحب */
@@ -135,19 +141,19 @@
     document.addEventListener('DOMContentLoaded', function() {
         // إعدادات المكتبة لإجبار صفحة واحدة دائماً
         const pageFlip = new St.PageFlip(document.getElementById('book'), {
-            width: 400, // عرض الصفحة الافتراضي
-            height: 650, // طول الصفحة الافتراضي
-            size: "stretch", // التمدد ليملأ الحاوية
+            width: 320, // تم تعديل العرض ليتناسب مع نسبة 740
+            height: 650, // الطول بقي كما هو
+            size: "stretch",
             minWidth: 300,
-            maxWidth: 450, // الحد الأقصى يمنع ظهور صفحتين
+            maxWidth: 400, // قللنا الحد الأقصى للعرض
             minHeight: 400,
             maxHeight: 850,
-            showCover: false, // تعطيل الغلاف المزدوج للحفاظ على نظام الصفحة الواحدة
+            showCover: false,
             mobileScrollSupport: true,
-            usePortrait: true, // إجبار الوضع الطولي (صفحة واحدة)
-            maxShadowOpacity: 0.3, // ظل خفيف وواقعي
-            showPageCorners: true, // إظهار طية الورق في الزاوية
-            swipeDistance: 30 // حساسية السحب
+            usePortrait: true,
+            maxShadowOpacity: 0.3,
+            showPageCorners: true,
+            swipeDistance: 30
         });
 
         // تحميل الصفحات
@@ -162,6 +168,13 @@
 
         // إخفاء تلميح "اسحب للتقليب" بمجرد أن يقوم الزبون بأول تقليبة
         pageFlip.on('flip', (e) => {
+
+            const flipSound = document.getElementById('flip-sound');
+            if(flipSound) {
+                flipSound.currentTime = 0; // إرجاع الصوت للبداية حتى يعمل مع التقليب السريع
+                flipSound.play().catch(error => console.log('المتصفح منع الصوت:', error)); // تشغيل الصوت
+            }
+
             const hint = document.getElementById('hint');
             if(hint) {
                 hint.style.transition = 'opacity 0.5s';

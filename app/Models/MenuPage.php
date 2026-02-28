@@ -15,14 +15,21 @@ class MenuPage extends Model implements HasMedia
     protected $fillable = [
         'name',
         'sort_order',
-        'is_active'
+        'is_active',
+        'category_id'
     ];
 
     public function registerMediaConversions(?Media $media = null): void
     {
         $this
             ->addMediaConversion('image')
-            ->fit(Fit::Contain, 300, 300)
-            ->nonQueued();
+            ->fit(Fit::Contain)
+            ->format('webp')
+            ->quality(80);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

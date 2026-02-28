@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\MenuPages\Schemas;
 
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -15,6 +16,13 @@ class MenuPageForm
             ->components([
 
                 TextInput::make('name'),
+
+                Select::make('category_id')
+                    ->label('التصنيف')
+                    ->relationship('category', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->required(),
 
                 Toggle::make('is_active')
                     ->label('مفعل (إظهار الصفحة)')

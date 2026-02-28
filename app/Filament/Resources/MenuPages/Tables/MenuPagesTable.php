@@ -21,6 +21,7 @@ class MenuPagesTable
                     ->collection('image')
                     ->conversion('image'),
                 TextColumn::make('name'),
+                TextColumn::make('category.name')
             ])
             ->filters([
                 //
