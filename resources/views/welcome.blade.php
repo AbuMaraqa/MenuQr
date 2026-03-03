@@ -219,38 +219,16 @@
             align-items: center;
             justify-content: center;
             margin-top: 0; /* إزالة الهامش العلوي */
-            /* حل أساسي لمشكلة الحسابات العكسية التي تسبب قص في المتصفحات بسبب الـ rtl */
-            direction: ltr !important; 
-        }
-
-        /* إجبار محركات (Safari/WebKit/Samsung) على معالجة الـ 3D بشكل صحيح ومنع التسطيح الذي يسبب المثلث الأسود */
-        .stf__wrapper, .stf__block, .stf__item {
-            -webkit-transform-style: preserve-3d !important;
-            transform-style: preserve-3d !important;
-            /* حل الخلل الشائع في سفاري للتقاطع 3D */
-            -webkit-backface-visibility: hidden !important;
-            backface-visibility: hidden !important;
-        }
-
-        #book {
-            -webkit-transform-style: preserve-3d !important;
-            transform-style: preserve-3d !important;
         }
 
         .page {
             background-color: #000000;
-            border-radius: 0; 
+            border-radius: 0; /* إزالة الانحناء لكي تغطي الصورة الزوايا الميتة */
             box-shadow: none;
-            overflow: hidden !important; 
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            
-            /* أسطر سحرية لحل مشكلة القطع (Triangle glitch) في Safari و iOS */
-            -webkit-backface-visibility: hidden !important;
-            backface-visibility: hidden !important;
-            -webkit-transform: translate3d(0, 0, 1px) !important;
-            transform: translate3d(0, 0, 1px) !important;
         }
 
         .page img {
@@ -259,14 +237,6 @@
             object-fit: fill;
             background-color: transparent;
             pointer-events: none;
-            display: block;
-            /* منع سحب الصورة بالخطأ */
-            -webkit-user-drag: none;
-            
-            -webkit-backface-visibility: hidden !important;
-            backface-visibility: hidden !important;
-            -webkit-transform: translate3d(0, 0, 2px) !important;
-            transform: translate3d(0, 0, 2px) !important;
         }
 
         /* تلميح السحب */
