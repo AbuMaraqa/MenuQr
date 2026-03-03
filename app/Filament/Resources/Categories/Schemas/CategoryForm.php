@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Categories\Schemas;
 
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -13,6 +14,12 @@ class CategoryForm
     {
         return $schema
             ->components([
+                SpatieMediaLibraryFileUpload::make('image')
+                    ->label('صورة التصنيف')
+                    ->collection('thumb')
+                    ->disk('public')
+                    ->columnSpanFull(),
+
                 TextInput::make('name')
                     ->label('اسم التصنيف')
                     ->required()
