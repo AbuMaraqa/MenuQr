@@ -211,8 +211,7 @@
         .page img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            object-position: center;
+            object-fit: fill;
             background-color: transparent;
             pointer-events: none;
         }
