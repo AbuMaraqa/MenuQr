@@ -68,7 +68,7 @@
 
         .categories-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* عرض في عمودين للهاتف */
+            grid-template-columns: repeat(1, 1fr); /* عرض في عمودين للهاتف */
             gap: 15px;
             width: 100%;
             padding: 10px;
@@ -277,9 +277,9 @@
             @foreach($categories as $category)
                 <div class="category-card" onclick="openCategory({{ $category->id }})">
                     <img class="category-img" src="{{ $category->getFirstMediaUrl('thumb') ?: 'https://via.placeholder.com/400x400.png?text=بدون+صورة' }}" alt="صورة القسم">
-                    <div class="category-overlay">
+                    <!-- <div class="category-overlay">
                         <h3 class="category-title">{{ $category->name }}</h3>
-                    </div>
+                    </div> -->
                 </div>
             @endforeach
         </div>
