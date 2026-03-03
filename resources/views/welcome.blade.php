@@ -387,16 +387,9 @@
         pages.forEach(url => {
             const slideDiv = document.createElement('div');
             slideDiv.className = 'swiper-slide';
-            
-            // حاوية الزوم
-            const zoomContainer = document.createElement('div');
-            zoomContainer.className = 'swiper-zoom-container';
-            
             const img = document.createElement('img');
             img.src = url;
-            
-            zoomContainer.appendChild(img);
-            slideDiv.appendChild(zoomContainer);
+            slideDiv.appendChild(img);
             swiperWrapper.appendChild(slideDiv);
         });
 
@@ -406,10 +399,6 @@
             grabCursor: true,
             loop: false,
             speed: 800,
-            zoom: {
-                maxRatio: 3, // التكبير حتى 3 أضعاف
-                minRatio: 1,
-            },
             flipEffect: {
                 slideShadows: true,
             },
