@@ -161,14 +161,31 @@
         }
 
         .page {
-            background-color: #000000;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    background-color: #000000;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    overflow: hidden;
+    position: relative; /* مهم لتحديد الطبقة الثابتة داخل الصفحة */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-img-wrapper {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none; /* منع التداخل مع السحب */
+}
+
+.page-img-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
 
         .page img {
             width: 100%;
@@ -311,29 +328,37 @@
         pages.forEach(url => {
             const pageDiv = document.createElement('div');
             pageDiv.className = 'page';
+            
+            // إضافة div ثابت للصورة داخل الصفحة
+            const imgWrapper = document.createElement('div');
+            imgWrapper.className = 'page-img-wrapper';
+    
             const img = document.createElement('img');
             img.src = url;
-            pageDiv.appendChild(img);
+    
+            imgWrapper.appendChild(img);
+            pageDiv.appendChild(imgWrapper);
+    
             bookDOM.appendChild(pageDiv);
         });
 
         // تهيئة PageFlip من جديد
         pageFlipInstance = new St.PageFlip(bookDOM, {
-            width: 320,
-            height: 650,
-            size: "stretch",
-            minWidth: 300,
-            maxWidth: 400,
-            minHeight: 400,
-            maxHeight: 850,
-            showCover: false,
-            mobileScrollSupport: true,
-            usePortrait: true, /* هذا الخيار يضمن أن يظهر بشكل صفحة واحدة في الهواتف */
-            maxShadowOpacity: 0.3,
-            showPageCorners: true,
-            swipeDistance: 10, /* تقليل المسافة لتسهيل السحب على الهاتف */
-            flippingTime: 1000
-        });
+    width: bookWrapper.clientWidth,
+    height: bookWrapper.clientHeight,
+    size: "stretch", 
+    minWidth: 300,
+    maxWidth: 400,
+    minHeight: 400,
+    maxHeight: 850,
+    showCover: false,
+    mobileScrollSupport: false, // مهم للهاتف لتجنب التداخل مع scroll
+    usePortrait: true,
+    maxShadowOpacity: 0.3,
+    showPageCorners: true,
+    swipeDistance: 10,
+    flippingTime: 400
+});
 
         pageFlipInstance.loadFromHTML(document.querySelectorAll('#book .page'));
 
