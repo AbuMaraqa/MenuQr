@@ -15,6 +15,10 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        html, body {
+            overscroll-behavior: none; /* يمنع سحب الشاشة المتصفح (Refresh / Back / Forward) */
+        }
+
         /* منع السحب والإفلات الأفتراضي وعمليات التمرير للمتصفح على الهاتف لكي لا يتعارض مع الكتاب */
         body {
             background: linear-gradient(135deg, #000000 0%, #000000 100%);
@@ -405,10 +409,12 @@
             height: rect.height || 850,
             size: "stretch",
             minWidth: 300,
+            maxWidth: 1000,
             minHeight: 400,
+            maxHeight: 1500,
             showCover: false,
             autoSize: true,
-            mobileScrollSupport: true,
+            mobileScrollSupport: false, /* إيقاف السماح بالتمرير (السكرول) على الهاتف لكي يجبر المتصفح على عدم الحركة */
             usePortrait: true, /* هذا الخيار يضمن أن يظهر بشكل صفحة واحدة في الهواتف */
             maxShadowOpacity: 0.3,
             renderOnlyPageLengthChange: true,
