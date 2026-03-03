@@ -238,7 +238,6 @@
             height: 100%;
             object-fit: fill;
             background-color: transparent;
-            pointer-events: none;
         }
 
         /* تلميح السحب */
@@ -387,20 +386,29 @@
         pages.forEach(url => {
             const slideDiv = document.createElement('div');
             slideDiv.className = 'swiper-slide';
+            
+            // حاوية الزوم
+            const zoomContainer = document.createElement('div');
+            zoomContainer.className = 'swiper-zoom-container';
+            
             const img = document.createElement('img');
             img.src = url;
-            slideDiv.appendChild(img);
+            zoomContainer.appendChild(img);
+            slideDiv.appendChild(zoomContainer);
+            
             swiperWrapper.appendChild(slideDiv);
         });
 
         // تهيئة Swiper
         swiperInstance = new Swiper('.swiper', {
-            effect: 'flip', // تأثير التقليب للصورة كاملة بدون دراغ زوايا
+            // أزلنا تأثير الـ flip لأننا فعلنا الزوم
+            effect: 'slide', // تمرير أفقي عادي بدلاً من التقليب
             grabCursor: true,
             loop: false,
-            speed: 800,
-            flipEffect: {
-                slideShadows: true,
+            speed: 500,
+            zoom: {
+                maxRatio: 3, // التكبير حتى 3 أضعاف
+                minRatio: 1,
             },
             on: {
                 slideChange: function () {
