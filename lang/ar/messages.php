@@ -2,6 +2,11 @@
 
 return [
 
+    'name' => 'الاسم',
+    'description' => 'الوصف',
+    'sort_order' => 'ترتيب',
+    'is_active' => 'مفعل',
+    'image' => 'الصورة',
     'category' => 'التصنيف',
     'category_name' => 'اسم التصنيف',
     'category_description' => 'وصف التصنيف',
@@ -10,8 +15,7 @@ return [
     'category_image' => 'صورة التصنيف',
     'menu_image' => 'صورة المنيو',
     'menu_name' => 'اسم المنيو',
-    'is_active' => 'مفعل',
-    'Background Image' => 'صورة الخلفية',
+    'background_image' => 'صورة الخلفية',
 
     'settings' => 'الاعدادات',
     'settings_description' => 'اعدادات التطبيق',

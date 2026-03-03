@@ -15,6 +15,7 @@ class SettingsTable
         return $table
             ->columns([
                 SpatieMediaLibraryImageColumn::make('background')
+                    ->label(__('messages.background_image'))
                     ->collection('background')
                     ->disk('public')
                     ->width(100)
