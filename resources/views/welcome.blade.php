@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Chakoza Menu</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
@@ -30,7 +30,7 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
-            /* تم إزالة touch-action: none للسماح بالزوم والتكبير على الهاتف */
+            touch-action: none; /* مهم جداً للهاتف لمنع سحب المتصفح بدلاً من الكتاب */
             font-family: 'Tajawal', sans-serif;
             color: #fff;
         }
@@ -238,6 +238,7 @@
             height: 100%;
             object-fit: fill;
             background-color: transparent;
+            pointer-events: none;
         }
 
         /* تلميح السحب */
