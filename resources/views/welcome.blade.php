@@ -69,11 +69,12 @@
 
         .categories-grid {
             display: grid;
-            grid-template-columns: repeat(1, 1fr); /* عرض في عمودين للهاتف */
+            grid-template-columns: repeat(2, 1fr); /* عرض في عمودين */
             gap: 15px;
             width: 100%;
             padding: 10px;
             padding-bottom: 50px;
+            align-items: stretch; /* لمساواة الارتفاع بين الكروت */
         }
 
         .category-card {
@@ -85,8 +86,10 @@
             box-shadow: 0 6px 15px rgba(0,0,0,0.4);
             transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
             border: 1px solid rgba(245, 158, 11, 0.2);
-            aspect-ratio: 1 / 1; /* لجعل البطاقة مربعة متناسقة */
-            display: block;
+            /* تمت إزالة aspect-ratio للسماح للصورة بأخذ ارتفاعها الكامل الطبيعي */
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .category-card:active {
@@ -96,7 +99,7 @@
         .category-img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* لملء المربع بشكل كامل ومرتب */
+            object-fit: cover; /* لملء البطاقة بشكل كامل ومرتب بدون تشويه */
             transition: transform 0.4s ease;
             display: block;
         }
