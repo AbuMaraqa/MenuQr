@@ -219,6 +219,14 @@
             align-items: center;
             justify-content: center;
             margin-top: 0; /* إزالة الهامش العلوي */
+            /* تحسين العرض للأجهزة التي تعمل بنظام WebKit */
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+
+        #book {
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
         }
 
         .page {
@@ -226,9 +234,14 @@
             border-radius: 0; /* إزالة الانحناء لكي تغطي الصورة الزوايا الميتة */
             box-shadow: none;
             overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: block; /* تغيير flex إلى block لتجنب مشاكل إعادة الحساب أثناء الحركة */
+            
+            /* تفعيل الهاردوير لتسريع الحركة ومنع التقطيع (Glitch) في متصفحات السفاري/الايفون */
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+            will-change: transform;
         }
 
         .page img {
@@ -237,6 +250,13 @@
             object-fit: fill;
             background-color: transparent;
             pointer-events: none;
+            display: block;
+            
+            /* منع الوميض بالتحريك */
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
         }
 
         /* تلميح السحب */
