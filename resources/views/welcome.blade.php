@@ -227,20 +227,19 @@
         }
 
         .swiper-slide {
-            background-color: #000000;
+            background-color: transparent;
             display: flex;
             justify-content: center;
             align-items: center;
-            /* منع ظهور خلفية الورقة المعلقة عند التقليب بسبب التعارض مع الزوم */
             -webkit-backface-visibility: hidden !important;
             backface-visibility: hidden !important;
-            transform-style: preserve-3d;
+            transform-style: preserve-3d !important;
         }
 
         .swiper-zoom-container {
             -webkit-backface-visibility: hidden !important;
             backface-visibility: hidden !important;
-            transform-style: preserve-3d;
+            transform-style: preserve-3d !important;
         }
 
         .swiper-slide img {
@@ -250,6 +249,10 @@
             background-color: transparent;
             user-select: none;
             -webkit-user-drag: none;
+            -webkit-backface-visibility: hidden !important;
+            backface-visibility: hidden !important;
+            /* Fix for zooming clipping rendering */
+            transform: translateZ(0); 
         }
 
         /* تلميح السحب */
