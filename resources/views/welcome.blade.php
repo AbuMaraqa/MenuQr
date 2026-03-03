@@ -404,8 +404,15 @@
             width: rect.width || 400,
             height: rect.height || 850,
             size: "stretch",
+            minWidth: 300,
+            minHeight: 400,
             showCover: false,
             autoSize: true,
+            mobileScrollSupport: true,
+            usePortrait: true, /* هذا الخيار يضمن أن يظهر بشكل صفحة واحدة في الهواتف */
+            maxShadowOpacity: 0.3,
+            renderOnlyPageLengthChange: true,
+            showPageCorners: true,
             swipeDistance: 10, /* تقليل المسافة لتسهيل السحب على الهاتف */
             flippingTime: 1000
         });
