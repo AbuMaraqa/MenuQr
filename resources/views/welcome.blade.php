@@ -67,24 +67,25 @@
         }
 
         .categories-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* عرض في عمودين للهاتف */
+            gap: 15px;
             width: 100%;
+            padding: 10px;
             padding-bottom: 50px;
         }
 
         .category-card {
-            background: #000;
-            border-radius: 8px; /* نفس انحناء صفحات المنيو */
+            background: #111;
+            border-radius: 12px; /* انحناء احترافي */
             overflow: hidden;
             position: relative;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* نفس ظل صفحات المنيو */
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
             transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
-            border: 1px solid rgba(245, 158, 11, 0.1);
-            display: flex;
-            flex-direction: column;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            aspect-ratio: 1 / 1; /* لجعل البطاقة مربعة متناسقة */
+            display: block;
         }
 
         .category-card:active {
@@ -93,14 +94,36 @@
 
         .category-img {
             width: 100%;
-            height: auto;
-            object-fit: contain;
+            height: 100%;
+            object-fit: cover; /* لملء المربع بشكل كامل ومرتب */
             transition: transform 0.4s ease;
             display: block;
         }
 
+        .category-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            pointer-events: none;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 12px;
+        }
+
+        .category-title {
+            color: #f59e0b;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            margin: 0;
+            padding: 0 5px;
+        }
+
         .category-card:hover .category-img {
-            transform: scale(1.02);
+            transform: scale(1.05); /* تكبير سلس عند التمرير */
         }
 
         .category-card:hover {
@@ -253,7 +276,10 @@
         <div class="categories-grid">
             @foreach($categories as $category)
                 <div class="category-card" onclick="openCategory({{ $category->id }})">
-                    <img class="category-img" src="{{ $category->getFirstMediaUrl('thumb') ?: 'https://via.placeholder.com/400x600.png?text=بدون+صورة' }}" alt="صورة القسم">
+                    <img class="category-img" src="{{ $category->getFirstMediaUrl('thumb') ?: 'https://via.placeholder.com/400x400.png?text=بدون+صورة' }}" alt="صورة القسم">
+                    <div class="category-overlay">
+                        <h3 class="category-title">{{ $category->name }}</h3>
+                    </div>
                 </div>
             @endforeach
         </div>
@@ -383,6 +409,7 @@
             minHeight: 400,
             maxHeight: 1500,
             showCover: false,
+            autoSize: true,
             mobileScrollSupport: true,
             usePortrait: true, /* هذا الخيار يضمن أن يظهر بشكل صفحة واحدة في الهواتف */
             maxShadowOpacity: 0.3,
