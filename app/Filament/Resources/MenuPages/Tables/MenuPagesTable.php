@@ -17,11 +17,13 @@ class MenuPagesTable
         return $table
             ->columns([
                 SpatieMediaLibraryImageColumn::make('image')
-                    ->label('الصورة')
+                    ->label(__('messages.menu_image'))
                     ->collection('image')
                     ->conversion('image'),
-                TextColumn::make('name'),
+                TextColumn::make('name')
+                    ->label(__('messages.menu_name')),
                 TextColumn::make('category.name')
+                    ->label(__('messages.category'))
             ])
             ->filters([
                 //

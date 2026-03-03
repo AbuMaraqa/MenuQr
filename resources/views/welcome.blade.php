@@ -16,7 +16,6 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* منع السحب والإفلات الأفتراضي وعمليات التمرير للمتصفح على الهاتف لكي لا يتعارض مع الكتاب */
         body {
             @if(isset($setting) && $setting->getFirstMediaUrl('background'))
             background: url("{{ $setting->getFirstMediaUrl('background') }}") center center / cover no-repeat fixed;
@@ -30,12 +29,11 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
-            touch-action: none; /* مهم جداً للهاتف لمنع سحب المتصفح بدلاً من الكتاب */
+            touch-action: none;
             font-family: 'Tajawal', sans-serif;
             color: #fff;
         }
 
-        /* حاوية بحجم شاشة الهاتف لإجبار عرض صفحة واحدة */
         .app-container {
             width: 100%;
             max-width: 450px;
@@ -46,7 +44,6 @@
             justify-content: center;
         }
 
-        /* ----- واجهة الأقسام ----- */
         #categories-section {
             width: 100%;
             height: 100%;
@@ -55,8 +52,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center; /* هذه الخاصية لمركزه العناصر في منتصف الشاشة عمودياً */
-            /* Scrollbar styling */
+            justify-content: center;
             scrollbar-width: thin;
             scrollbar-color: #f59e0b #222;
         }
@@ -74,25 +70,23 @@
 
         .categories-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* عرض في عمودين */
+            grid-template-columns: repeat(2, 1fr);
             gap: 15px;
             width: 100%;
             padding: 10px;
             padding-bottom: 50px;
-            align-items: stretch; /* لمساواة الارتفاع بين الكروت */
+            align-items: stretch;
         }
 
         .category-card {
             background: #111;
-            border-radius: 12px; /* انحناء احترافي */
+            border-radius: 12px;
             overflow: hidden;
             position: relative;
             cursor: pointer;
-            /* إضافة وهج (Outer Glow) خلف بطاقة القسم */
             box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
             transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
             border: 1px solid rgba(245, 158, 11, 0.2);
-            /* تمت إزالة aspect-ratio للسماح للصورة بأخذ ارتفاعها الكامل الطبيعي */
             display: flex;
             flex-direction: column;
             height: 100%;
@@ -105,7 +99,7 @@
         .category-img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* لملء البطاقة بشكل كامل ومرتب بدون تشويه */
+            object-fit: cover;
             transition: transform 0.4s ease;
             display: block;
         }
@@ -133,15 +127,14 @@
         }
 
         .category-card:hover .category-img {
-            transform: scale(1.05); /* تكبير سلس عند التمرير */
+            transform: scale(1.05);
         }
 
         .category-card:hover {
             border-color: rgba(245, 158, 11, 0.8);
-            box-shadow: 0 0 25px rgba(245, 158, 11, 0.8); /* زيادة التوهج عند التمرير */
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.8);
         }
 
-        /* ----- واجهة الكتاب ----- */
         #book-section {
             width: 100%;
             height: 100%;
@@ -152,7 +145,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 0; /* إزالة الـ padding لكي تلامس الصورة الحواف */
+            padding: 0;
             background: #000;
             z-index: 10;
         }
@@ -183,7 +176,6 @@
             color: #000;
         }
 
-        /* ----- أزرار التقليب (الأسهم) ----- */
         .nav-arrow {
             position: absolute;
             top: 50%;
@@ -251,11 +243,9 @@
             -webkit-user-drag: none;
             -webkit-backface-visibility: hidden !important;
             backface-visibility: hidden !important;
-            /* Fix for zooming clipping rendering */
             transform: translateZ(0); 
         }
 
-        /* تلميح السحب */
         .swipe-hint {
             position: absolute;
             bottom: 30px;
@@ -274,7 +264,6 @@
             50% { transform: translateX(-15px); opacity: 1; }
         }
 
-        /* رسالة عدم وجود صفحات */
         .no-pages-msg {
             display: none;
             color: #ccc;
@@ -293,9 +282,6 @@
             @foreach($categories as $category)
                 <div class="category-card" onclick="openCategory({{ $category->id }})">
                     <img class="category-img" src="{{ $category->getFirstMediaUrl('thumb') ?: 'https://via.placeholder.com/400x400.png?text=بدون+صورة' }}" alt="صورة القسم">
-                    <!-- <div class="category-overlay">
-                        <h3 class="category-title">{{ $category->name }}</h3>
-                    </div> -->
                 </div>
             @endforeach
         </div>
@@ -327,7 +313,6 @@
 
         <div class="swiper" id="swiper-container-wrapper" style="display: none;">
             <div class="swiper-wrapper" id="swiper-wrapper">
-                <!-- Swiper slides go here -->
             </div>
         </div>
 
@@ -341,7 +326,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-    // تخزين بيانات صفحات كل قسم في كائن JS
     const categoryData = {
         @foreach($categories as $category)
             {{ $category->id }}: [
@@ -367,13 +351,11 @@
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
 
-        // إخفاء الأقسام وإظهار قسم الكتاب
         categoriesSection.style.display = 'none';
         bookSection.style.display = 'flex';
         hint.style.display = 'flex';
         hint.style.opacity = '1';
 
-        // تفريغ الكتاب القديم وإعادة بناء العنصر
         if(swiperInstance) {
             swiperInstance.destroy(true, true);
             swiperInstance = null;
@@ -382,7 +364,6 @@
         swiperWrapper.innerHTML = '';
 
         if (!pages || pages.length === 0) {
-            // لا يوجد صفحات
             swiperContainer.style.display = 'none';
             hint.style.display = 'none';
             prevBtn.style.display = 'none';
@@ -391,18 +372,15 @@
             return;
         }
 
-        // يوجد صفحات
         noPagesMsg.style.display = 'none';
         swiperContainer.style.display = 'block';
         prevBtn.style.display = 'flex';
         nextBtn.style.display = 'flex';
 
-        // إنشاء الصفحات كعناصر HTML
         pages.forEach(url => {
             const slideDiv = document.createElement('div');
             slideDiv.className = 'swiper-slide';
             
-            // حاوية الزوم
             const zoomContainer = document.createElement('div');
             zoomContainer.className = 'swiper-zoom-container';
             
@@ -414,7 +392,6 @@
             swiperWrapper.appendChild(slideDiv);
         });
 
-        // تهيئة Swiper
         swiperInstance = new Swiper('.swiper', {
             effect: 'flip',
             grabCursor: true,
@@ -425,7 +402,7 @@
                 minRatio: 1,
             },
             flipEffect: {
-                slideShadows: false, // تعطيل الظلال لضمان عدم تعليق الأوراق عند تداخلها مع الزوم
+                slideShadows: false,
             },
             on: {
                 slideChange: function () {
@@ -446,12 +423,10 @@
     }
 
     function backToCategories() {
-        // إخفاء قسم الكتاب والعودة للأقسام
         document.getElementById('book-section').style.display = 'none';
         document.getElementById('categories-section').style.display = 'flex';
     }
 
-    // دوال التقليب بواسطة الأسهم
     function flipToNext() {
         if (swiperInstance) {
             swiperInstance.slideNext();

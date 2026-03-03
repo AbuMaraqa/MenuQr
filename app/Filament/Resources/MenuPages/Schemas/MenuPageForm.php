@@ -18,18 +18,18 @@ class MenuPageForm
                 TextInput::make('name'),
 
                 Select::make('category_id')
-                    ->label('التصنيف')
+                    ->label(__('messages.category'))
                     ->relationship('category', 'name')
                     ->searchable()
                     ->preload()
                     ->required(),
 
                 Toggle::make('is_active')
-                    ->label('مفعل (إظهار الصفحة)')
+                    ->label(__('messages.is_active'))
                     ->default(true),
 
                 SpatieMediaLibraryFileUpload::make('image')
-                    ->label('صورة المنيو')
+                    ->label(__('messages.menu_image'))
                     ->image()
                     ->disk('public')
                     ->collection('image')

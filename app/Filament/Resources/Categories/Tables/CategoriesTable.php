@@ -17,21 +17,21 @@ class CategoriesTable
         return $table
             ->columns([
                 SpatieMediaLibraryImageColumn::make('thumb')
-                    ->label('الصورة')
+                    ->label(__('messages.category_image'))
                     ->collection('thumb')
                     ->circular(),
 
                 TextColumn::make('name')
-                    ->label('اسم التصنيف')
+                    ->label(__('messages.category_name'))
                     ->searchable(),
 
                 TextColumn::make('sort_order')
-                    ->label('الترتيب')
+                    ->label(__('messages.category_sort_order'))
                     ->numeric()
                     ->sortable(),
 
                 IconColumn::make('is_active')
-                    ->label('مفعل')
+                    ->label(__('messages.category_is_active'))
                     ->boolean(),
 
                 TextColumn::make('created_at')

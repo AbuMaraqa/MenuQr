@@ -15,28 +15,28 @@ class CategoryForm
         return $schema
             ->components([
                 SpatieMediaLibraryFileUpload::make('image')
-                    ->label('صورة التصنيف')
+                    ->label(__('messages.category_image'))
                     ->collection('thumb')
                     ->disk('public')
                     ->columnSpanFull(),
 
                 TextInput::make('name')
-                    ->label('اسم التصنيف')
+                    ->label(__('messages.category_name'))
                     ->required()
                     ->maxLength(255),
 
                 Textarea::make('description')
-                    ->label('الوصف')
+                    ->label(__('messages.category_description'))
                     ->maxLength(255)
                     ->columnSpanFull(),
 
                 TextInput::make('sort_order')
-                    ->label('الترتيب')
+                    ->label(__('messages.category_sort_order'))
                     ->numeric()
                     ->default(0),
 
                 Toggle::make('is_active')
-                    ->label('مفعل')
+                    ->label(__('messages.category_is_active'))
                     ->default(true),
             ]);
     }
