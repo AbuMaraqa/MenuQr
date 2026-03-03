@@ -187,37 +187,38 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(30,30,30, 0.8);
-            color: #f59e0b;
-            border: 1px solid #f59e0b;
+            background: rgba(30,30,30, 0.5);
+            color: rgba(245, 158, 11, 0.8);
+            border: 1px solid rgba(245, 158, 11, 0.4);
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             z-index: 100;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(3px);
             transition: all 0.2s ease;
         }
 
         .nav-arrow:hover, .nav-arrow:active {
-            background: #f59e0b;
+            background: rgba(245, 158, 11, 0.9);
             color: #000;
+            border-color: #f59e0b;
         }
 
         .nav-arrow svg {
-            width: 24px;
-            height: 24px;
+            width: 18px;
+            height: 18px;
         }
 
         .right-arrow {
-            right: 15px;
+            right: 8px;
         }
 
         .left-arrow {
-            left: 15px;
+            left: 8px;
         }
 
         .swiper {
