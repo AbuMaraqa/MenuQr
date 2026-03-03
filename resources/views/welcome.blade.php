@@ -187,10 +187,9 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(30,30,30, 0.5);
-            color: rgba(245, 158, 11, 0.8);
-            border: 1px solid rgba(245, 158, 11, 0.4);
-            border-radius: 50%;
+            background: transparent;
+            color: rgba(245, 158, 11, 0.6);
+            border: none;
             width: 30px;
             height: 30px;
             display: flex;
@@ -198,14 +197,14 @@
             justify-content: center;
             cursor: pointer;
             z-index: 100;
-            backdrop-filter: blur(3px);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
             transition: all 0.2s ease;
         }
 
         .nav-arrow:hover, .nav-arrow:active {
-            background: rgba(245, 158, 11, 0.9);
-            color: #000;
-            border-color: #f59e0b;
+            background: transparent;
+            color: rgba(245, 158, 11, 1);
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.8));
         }
 
         .nav-arrow svg {
