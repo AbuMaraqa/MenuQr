@@ -88,7 +88,8 @@
             overflow: hidden;
             position: relative;
             cursor: pointer;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+            /* إضافة وهج (Outer Glow) خلف بطاقة القسم */
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
             transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
             border: 1px solid rgba(245, 158, 11, 0.2);
             /* تمت إزالة aspect-ratio للسماح للصورة بأخذ ارتفاعها الكامل الطبيعي */
@@ -136,8 +137,8 @@
         }
 
         .category-card:hover {
-            border-color: rgba(245, 158, 11, 0.5);
-            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.2);
+            border-color: rgba(245, 158, 11, 0.8);
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.8); /* زيادة التوهج عند التمرير */
         }
 
         /* ----- واجهة الكتاب ----- */
