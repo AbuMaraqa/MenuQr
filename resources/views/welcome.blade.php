@@ -227,6 +227,9 @@
         .stf__wrapper, .stf__block, .stf__item {
             -webkit-transform-style: preserve-3d !important;
             transform-style: preserve-3d !important;
+            /* حل الخلل الشائع في سفاري للتقاطع 3D */
+            -webkit-backface-visibility: hidden !important;
+            backface-visibility: hidden !important;
         }
 
         #book {
@@ -238,11 +241,16 @@
             background-color: #000000;
             border-radius: 0; 
             box-shadow: none;
-            /* السماح بتجاوز الحواف يمنع تفاعل Safari السيء عند دوران العنصر، وهو ما يسبب القطع المفاجئ */
-            overflow: visible !important; 
+            overflow: hidden !important; 
             display: flex;
             justify-content: center;
             align-items: center;
+            
+            /* أسطر سحرية لحل مشكلة القطع (Triangle glitch) في Safari و iOS */
+            -webkit-backface-visibility: hidden !important;
+            backface-visibility: hidden !important;
+            -webkit-transform: translate3d(0, 0, 1px) !important;
+            transform: translate3d(0, 0, 1px) !important;
         }
 
         .page img {
@@ -254,6 +262,11 @@
             display: block;
             /* منع سحب الصورة بالخطأ */
             -webkit-user-drag: none;
+            
+            -webkit-backface-visibility: hidden !important;
+            backface-visibility: hidden !important;
+            -webkit-transform: translate3d(0, 0, 2px) !important;
+            transform: translate3d(0, 0, 2px) !important;
         }
 
         /* تلميح السحب */
