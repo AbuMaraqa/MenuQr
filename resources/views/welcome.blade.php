@@ -18,7 +18,11 @@
 
         /* منع السحب والإفلات الأفتراضي وعمليات التمرير للمتصفح على الهاتف لكي لا يتعارض مع الكتاب */
         body {
+            @if(isset($setting) && $setting->getFirstMediaUrl('background'))
+            background: url("{{ $setting->getFirstMediaUrl('background') }}") center center / cover no-repeat fixed;
+            @else
             background: linear-gradient(135deg, #000000 0%, #000000 100%);
+            @endif
             margin: 0;
             padding: 0;
             display: flex;

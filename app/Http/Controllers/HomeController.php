@@ -16,6 +16,8 @@ class HomeController extends Controller
             ->orderBy('sort_order')
             ->get();
 
-        return view('welcome', compact('categories'));
+        $setting = \App\Models\Setting::first();
+
+        return view('welcome', compact('categories', 'setting'));
     }
 }
