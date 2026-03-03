@@ -31,7 +31,6 @@
 
         .app-container {
             width: 100%;
-            max-width: 450px;
             height: 100%;
             position: relative;
             display: flex;
@@ -109,16 +108,16 @@
         #book-section {
             width: 100%;
             height: 100%;
-            position: absolute;
+            position: fixed; /* تغيير إلى fixed لضمان التغطية الكاملة للشاشة */
             top: 0;
             left: 0;
             display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 0; /* تم إزالة الـ padding لكي يملأ الكتاب الشاشة */
+            padding: 0;
             background: #000;
-            z-index: 10;
+            z-index: 9999;
         }
 
         .back-btn {
@@ -189,8 +188,7 @@
         .page img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* التعديل الأهم: الصورة تملأ الإطار بالكامل (قد يتم قص الأطراف) */
-            object-position: center; /* تمركز الصورة */
+            object-fit: fill; /* تغيير التعبئة لتغطي الشاشة بالكامل دون أي هوامش */
             background-color: transparent;
             pointer-events: none;
         }
