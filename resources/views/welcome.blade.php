@@ -6,6 +6,7 @@
     <title>منيو Snack Corner</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <audio id="flip-sound" src="{{ asset('./assets/page-flip.mp3') }}" preload="auto"></audio>
 
@@ -211,27 +212,19 @@
             left: 15px;
         }
 
-        .flip-book-wrapper {
-            opacity: 1;
+        .swiper {
             width: 100%;
             height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 0; /* إزالة الهامش العلوي */
         }
 
-        .page {
+        .swiper-slide {
             background-color: #000000;
-            border-radius: 0; /* إزالة الانحناء لكي تغطي الصورة الزوايا الميتة */
-            box-shadow: none;
-            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .page img {
+        .swiper-slide img {
             width: 100%;
             height: 100%;
             object-fit: fill;
@@ -309,9 +302,10 @@
             عذراً، لا يوجد صفحات مضافة لهذا القسم حالياً.
         </div>
 
-        <div class="flip-book-wrapper" id="book-wrapper">
-            <div id="book">
-                </div>
+        <div class="swiper" id="swiper-container-wrapper" style="display: none;">
+            <div class="swiper-wrapper" id="swiper-wrapper">
+                <!-- Swiper slides go here -->
+            </div>
         </div>
 
         <div class="swipe-hint" id="hint">
@@ -322,7 +316,7 @@
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
     // تخزين بيانات صفحات كل قسم في كائن JS
     const categoryData = {
@@ -335,14 +329,15 @@
         @endforeach
     };
 
-    let pageFlipInstance = null;
+    let swiperInstance = null;
 
     function openCategory(categoryId) {
         const pages = categoryData[categoryId];
         
         const categoriesSection = document.getElementById('categories-section');
         const bookSection = document.getElementById('book-section');
-        const bookWrapper = document.getElementById('book-wrapper');
+        const swiperContainer = document.getElementById('swiper-container-wrapper');
+        const swiperWrapper = document.getElementById('swiper-wrapper');
         const noPagesMsg = document.getElementById('no-pages-msg');
         const hint = document.getElementById('hint');
         
@@ -355,24 +350,17 @@
         hint.style.display = 'flex';
         hint.style.opacity = '1';
 
-        // تفريغ الكتاب القديم وإعادة بناء العنصر لتجنب أخطاء المكتبة بعد الـ destroy
-        if(pageFlipInstance) {
-            pageFlipInstance.destroy();
-            pageFlipInstance = null;
+        // تفريغ الكتاب القديم وإعادة بناء العنصر
+        if(swiperInstance) {
+            swiperInstance.destroy(true, true);
+            swiperInstance = null;
         }
 
-        let oldBook = document.getElementById('book');
-        if(oldBook) {
-            oldBook.remove();
-        }
-
-        const bookDOM = document.createElement('div');
-        bookDOM.id = 'book';
-        bookWrapper.appendChild(bookDOM);
+        swiperWrapper.innerHTML = '';
 
         if (!pages || pages.length === 0) {
             // لا يوجد صفحات
-            bookWrapper.style.display = 'none';
+            swiperContainer.style.display = 'none';
             hint.style.display = 'none';
             prevBtn.style.display = 'none';
             nextBtn.style.display = 'none';
@@ -382,56 +370,43 @@
 
         // يوجد صفحات
         noPagesMsg.style.display = 'none';
-        bookWrapper.style.display = 'flex';
+        swiperContainer.style.display = 'block';
         prevBtn.style.display = 'flex';
         nextBtn.style.display = 'flex';
 
         // إنشاء الصفحات كعناصر HTML
         pages.forEach(url => {
-            const pageDiv = document.createElement('div');
-            pageDiv.className = 'page';
+            const slideDiv = document.createElement('div');
+            slideDiv.className = 'swiper-slide';
             const img = document.createElement('img');
             img.src = url;
-            pageDiv.appendChild(img);
-            bookDOM.appendChild(pageDiv);
+            slideDiv.appendChild(img);
+            swiperWrapper.appendChild(slideDiv);
         });
 
-        // أخذ مقاسات الشاشة لضبط نسبة حجم الكتاب (Aspect Ratio) تلقائياً
-        const rect = bookWrapper.getBoundingClientRect();
+        // تهيئة Swiper
+        swiperInstance = new Swiper('.swiper', {
+            effect: 'flip', // تأثير التقليب للصورة كاملة بدون دراغ زوايا
+            grabCursor: true,
+            loop: false,
+            speed: 800,
+            flipEffect: {
+                slideShadows: true,
+            },
+            on: {
+                slideChange: function () {
+                    const flipSound = document.getElementById('flip-sound');
+                    if(flipSound) {
+                        flipSound.currentTime = 0;
+                        flipSound.play().catch(error => console.log('المتصفح منع الصوت:', error));
+                    }
 
-        // تهيئة PageFlip من جديد
-        pageFlipInstance = new St.PageFlip(bookDOM, {
-            width: rect.width || 400,
-            height: rect.height || 850,
-            size: "stretch",
-            minWidth: 300,
-            maxWidth: 1000,
-            minHeight: 400,
-            maxHeight: 1500,
-            showCover: false,
-            autoSize: true,
-            mobileScrollSupport: true,
-            usePortrait: true, /* هذا الخيار يضمن أن يظهر بشكل صفحة واحدة في الهواتف */
-            maxShadowOpacity: 0.3,
-            renderOnlyPageLengthChange: true,
-            showPageCorners: true,
-            swipeDistance: 10, /* تقليل المسافة لتسهيل السحب على الهاتف */
-            flippingTime: 1000
-        });
-
-        pageFlipInstance.loadFromHTML(document.querySelectorAll('#book .page'));
-
-        pageFlipInstance.on('flip', (e) => {
-            const flipSound = document.getElementById('flip-sound');
-            if(flipSound) {
-                flipSound.currentTime = 0;
-                flipSound.play().catch(error => console.log('المتصفح منع الصوت:', error));
-            }
-
-            if(hint && hint.style.display !== 'none') {
-                hint.style.transition = 'opacity 0.5s';
-                hint.style.opacity = '0';
-                setTimeout(() => hint.style.display = 'none', 500);
+                    if(hint && hint.style.display !== 'none') {
+                        hint.style.transition = 'opacity 0.5s';
+                        hint.style.opacity = '0';
+                        setTimeout(() => hint.style.display = 'none', 500);
+                    }
+                }
             }
         });
     }
@@ -440,24 +415,18 @@
         // إخفاء قسم الكتاب والعودة للأقسام
         document.getElementById('book-section').style.display = 'none';
         document.getElementById('categories-section').style.display = 'flex';
-        
-        // إيقاف الكتاب إذا كان يعمل
-        if(pageFlipInstance) {
-            // لا تدمر الكتاب هنا بالكامل لتجنب المشاكل في زر العودة السريع
-            // سيتم تدميره وإعادة بنائه عند الضغط على قسم جديد في openCategory
-        }
     }
 
     // دوال التقليب بواسطة الأسهم
     function flipToNext() {
-        if (pageFlipInstance) {
-            pageFlipInstance.flipNext();
+        if (swiperInstance) {
+            swiperInstance.slideNext();
         }
     }
 
     function flipToPrev() {
-        if (pageFlipInstance) {
-            pageFlipInstance.flipPrev();
+        if (swiperInstance) {
+            swiperInstance.slidePrev();
         }
     }
 </script>
