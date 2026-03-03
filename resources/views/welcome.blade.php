@@ -117,17 +117,22 @@
             left: 0;
             display: none;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
             background: #000;
             z-index: 10;
         }
 
+        .back-btn-container {
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: flex-end;
+            z-index: 100;
+            position: absolute; /* فوق الكتاب مباشرة */
+            top: 0;
+            left: 0;
+        }
+
         .back-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
             background: rgba(30,30,30, 0.8);
             color: #f59e0b;
             border: 1px solid #f59e0b;
@@ -137,7 +142,6 @@
             font-family: inherit;
             font-weight: bold;
             cursor: pointer;
-            z-index: 100;
             display: flex;
             align-items: center;
             gap: 5px;
@@ -151,13 +155,13 @@
         }
 
         .flip-book-wrapper {
-            opacity: 1;
+            flex: 1;
             width: 100%;
-            height: 100%;
+            padding: 80px 15px 40px 15px; /* مسافة للزر بالأعلى وتلميح بالأسفل */
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 30px; /* لترك مساحة لزر العودة */
+            box-sizing: border-box;
         }
 
         .page {
@@ -182,15 +186,25 @@
         /* تلميح السحب */
         .swipe-hint {
             position: absolute;
-            bottom: 30px;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             color: rgba(255, 255, 255, 0.6);
             font-size: 0.9rem;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             pointer-events: none;
-            animation: slideLeft 2s infinite ease-in-out;
             z-index: 10;
+            width: 100%;
+        }
+
+        .swipe-hint span {
+            animation: slideLeft 2s infinite ease-in-out;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         @keyframes slideLeft {
@@ -225,12 +239,14 @@
 
     <!-- القسم الثاني: عارض الكتاب (يظهر عند الضغط على قسم) -->
     <div id="book-section">
-        <button class="back-btn" onclick="backToCategories()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 18l6-6-6-6"/>
-            </svg>
-            العودة
-        </button>
+        <div class="back-btn-container">
+            <button class="back-btn" onclick="backToCategories()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 18l6-6-6-6"/>
+                </svg>
+                العودة
+            </button>
+        </div>
 
         <div class="no-pages-msg" id="no-pages-msg">
             عذراً، لا يوجد صفحات مضافة لهذا القسم حالياً.
@@ -243,8 +259,10 @@
         </div>
 
         <div class="swipe-hint" id="hint">
-            <span>اسحب للتقليب</span>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            <span>
+                اسحب للتقليب
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </span>
         </div>
     </div>
 
@@ -317,15 +335,19 @@
             bookDOM.appendChild(pageDiv);
         });
 
+        // حساب الأبعاد بناءً على مساحة الحاوية ليكون متجاوباً مع جميع الهواتف
+        const wrapWidth = bookWrapper.clientWidth - 30 > 0 ? bookWrapper.clientWidth - 30 : 320;
+        const wrapHeight = bookWrapper.clientHeight - 30 > 0 ? bookWrapper.clientHeight - 30 : 650;
+
         // تهيئة PageFlip من جديد
         pageFlipInstance = new St.PageFlip(bookDOM, {
-            width: 320,
-            height: 650,
-            size: "stretch",
-            minWidth: 300,
-            maxWidth: 400,
-            minHeight: 400,
-            maxHeight: 850,
+            width: wrapWidth,
+            height: wrapHeight,
+            size: "fit", // 'fit' يضمن أن تملأ الصفحة الشاشة مع الحفاظ على النسب دون تشوه
+            minWidth: 200,
+            maxWidth: 1000,
+            minHeight: 300,
+            maxHeight: 1500,
             showCover: false,
             mobileScrollSupport: true,
             usePortrait: true, /* هذا الخيار يضمن أن يظهر بشكل صفحة واحدة في الهواتف */
