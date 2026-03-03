@@ -150,6 +150,44 @@
             color: #000;
         }
 
+        /* ----- أزرار التقليب (الأسهم) ----- */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(30,30,30, 0.8);
+            color: #f59e0b;
+            border: 1px solid #f59e0b;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            transition: all 0.2s ease;
+        }
+
+        .nav-arrow:hover, .nav-arrow:active {
+            background: #f59e0b;
+            color: #000;
+        }
+
+        .nav-arrow svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .right-arrow {
+            right: 15px;
+        }
+
+        .left-arrow {
+            left: 15px;
+        }
+
         .flip-book-wrapper {
             opacity: 1;
             width: 100%;
@@ -161,31 +199,14 @@
         }
 
         .page {
-    background-color: #000000;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    overflow: hidden;
-    position: relative; /* مهم لتحديد الطبقة الثابتة داخل الصفحة */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.page-img-wrapper {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    pointer-events: none; /* منع التداخل مع السحب */
-}
-
-.page-img-wrapper img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
+            background-color: #000000;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
         .page img {
             width: 100%;
@@ -229,7 +250,6 @@
 
 <div class="app-container">
 
-    <!-- القسم الأول: قائمة الأقسام -->
     <div id="categories-section">
         <div class="categories-grid">
             @foreach($categories as $category)
@@ -240,7 +260,6 @@
         </div>
     </div>
 
-    <!-- القسم الثاني: عارض الكتاب (يظهر عند الضغط على قسم) -->
     <div id="book-section">
         <button class="back-btn" onclick="backToCategories()">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -249,14 +268,25 @@
             العودة
         </button>
 
+        <button class="nav-arrow right-arrow" onclick="flipToPrev()" id="prev-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18l6-6-6-6"/>
+            </svg>
+        </button>
+
+        <button class="nav-arrow left-arrow" onclick="flipToNext()" id="next-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 18l-6-6 6-6"/>
+            </svg>
+        </button>
+
         <div class="no-pages-msg" id="no-pages-msg">
             عذراً، لا يوجد صفحات مضافة لهذا القسم حالياً.
         </div>
 
         <div class="flip-book-wrapper" id="book-wrapper">
             <div id="book">
-                <!-- سيتم حقن الصفحات هنا بواسطة الجافاسكربت -->
-            </div>
+                </div>
         </div>
 
         <div class="swipe-hint" id="hint">
@@ -291,6 +321,9 @@
         const noPagesMsg = document.getElementById('no-pages-msg');
         const hint = document.getElementById('hint');
         
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
         // إخفاء الأقسام وإظهار قسم الكتاب
         categoriesSection.style.display = 'none';
         bookSection.style.display = 'flex';
@@ -316,6 +349,8 @@
             // لا يوجد صفحات
             bookWrapper.style.display = 'none';
             hint.style.display = 'none';
+            prevBtn.style.display = 'none';
+            nextBtn.style.display = 'none';
             noPagesMsg.style.display = 'block';
             return;
         }
@@ -323,42 +358,37 @@
         // يوجد صفحات
         noPagesMsg.style.display = 'none';
         bookWrapper.style.display = 'flex';
+        prevBtn.style.display = 'flex';
+        nextBtn.style.display = 'flex';
 
         // إنشاء الصفحات كعناصر HTML
         pages.forEach(url => {
             const pageDiv = document.createElement('div');
             pageDiv.className = 'page';
-            
-            // إضافة div ثابت للصورة داخل الصفحة
-            const imgWrapper = document.createElement('div');
-            imgWrapper.className = 'page-img-wrapper';
-    
             const img = document.createElement('img');
             img.src = url;
-    
-            imgWrapper.appendChild(img);
-            pageDiv.appendChild(imgWrapper);
-    
+            pageDiv.appendChild(img);
             bookDOM.appendChild(pageDiv);
         });
 
         // تهيئة PageFlip من جديد
         pageFlipInstance = new St.PageFlip(bookDOM, {
-    width: bookWrapper.clientWidth,
-    height: bookWrapper.clientHeight,
-    size: "stretch", 
-    minWidth: 300,
-    maxWidth: 400,
-    minHeight: 400,
-    maxHeight: 850,
-    showCover: false,
-    mobileScrollSupport: false, // مهم للهاتف لتجنب التداخل مع scroll
-    usePortrait: true,
-    maxShadowOpacity: 0.3,
-    showPageCorners: true,
-    swipeDistance: 10,
-    flippingTime: 400
-});
+            width: 320,
+            height: 650,
+            size: "stretch",
+            minWidth: 300,
+            maxWidth: 400,
+            minHeight: 400,
+            maxHeight: 850,
+            showCover: false,
+            mobileScrollSupport: true,
+            usePortrait: true, /* هذا الخيار يضمن أن يظهر بشكل صفحة واحدة في الهواتف */
+            maxShadowOpacity: 0.3,
+            renderOnlyPageLengthChange: true,
+            showPageCorners: true,
+            swipeDistance: 10, /* تقليل المسافة لتسهيل السحب على الهاتف */
+            flippingTime: 1000
+        });
 
         pageFlipInstance.loadFromHTML(document.querySelectorAll('#book .page'));
 
@@ -386,6 +416,19 @@
         if(pageFlipInstance) {
             // لا تدمر الكتاب هنا بالكامل لتجنب المشاكل في زر العودة السريع
             // سيتم تدميره وإعادة بنائه عند الضغط على قسم جديد في openCategory
+        }
+    }
+
+    // دوال التقليب بواسطة الأسهم
+    function flipToNext() {
+        if (pageFlipInstance) {
+            pageFlipInstance.flipNext();
+        }
+    }
+
+    function flipToPrev() {
+        if (pageFlipInstance) {
+            pageFlipInstance.flipPrev();
         }
     }
 </script>
