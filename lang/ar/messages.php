@@ -11,10 +11,7 @@ return [
     'menu_image' => 'صورة المنيو',
     'menu_name' => 'اسم المنيو',
     'is_active' => 'مفعل',
-    'background' => 'صورة الخلفية',
-    'background_image' => 'صورة الخلفية',
-    'background_image_description' => 'صورة الخلفية',
-    'background_image_required' => 'صورة الخلفية مطلوبة',
+    'Background Image' => 'صورة الخلفية',
 
     'settings' => 'الاعدادات',
     'settings_description' => 'اعدادات التطبيق',
