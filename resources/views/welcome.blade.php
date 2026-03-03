@@ -231,6 +231,16 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            /* منع ظهور خلفية الورقة المعلقة عند التقليب بسبب التعارض مع الزوم */
+            -webkit-backface-visibility: hidden !important;
+            backface-visibility: hidden !important;
+            transform-style: preserve-3d;
+        }
+
+        .swiper-zoom-container {
+            -webkit-backface-visibility: hidden !important;
+            backface-visibility: hidden !important;
+            transform-style: preserve-3d;
         }
 
         .swiper-slide img {
@@ -238,6 +248,8 @@
             height: 100%;
             object-fit: fill;
             background-color: transparent;
+            user-select: none;
+            -webkit-user-drag: none;
         }
 
         /* تلميح السحب */
@@ -393,25 +405,24 @@
             
             const img = document.createElement('img');
             img.src = url;
+            
             zoomContainer.appendChild(img);
             slideDiv.appendChild(zoomContainer);
-            
             swiperWrapper.appendChild(slideDiv);
         });
 
         // تهيئة Swiper
         swiperInstance = new Swiper('.swiper', {
-            // تأثير 'cards' يعطي حركة 3D جميلة ومناسبة بدلاً من التقليب العادي للصفحات
-            effect: 'cards',
-            cardsEffect: {
-                slideShadows: true,
-            },
+            effect: 'flip',
             grabCursor: true,
             loop: false,
-            speed: 500,
+            speed: 800,
             zoom: {
-                maxRatio: 3, // التكبير حتى 3 أضعاف
+                maxRatio: 3,
                 minRatio: 1,
+            },
+            flipEffect: {
+                slideShadows: false, // تعطيل الظلال لضمان عدم تعليق الأوراق عند تداخلها مع الزوم
             },
             on: {
                 slideChange: function () {
