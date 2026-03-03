@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>منيو Snack Corner</title>
+    <title>Chakoza Menu</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -51,6 +51,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center; /* هذه الخاصية لمركزه العناصر في منتصف الشاشة عمودياً */
             /* Scrollbar styling */
             scrollbar-width: thin;
             scrollbar-color: #f59e0b #222;
