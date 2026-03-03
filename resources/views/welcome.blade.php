@@ -333,7 +333,7 @@
             maxShadowOpacity: 0.3,
             showPageCorners: true,
             swipeDistance: 10, /* تقليل المسافة لتسهيل السحب على الهاتف */
-            flippingTime: 400
+            flippingTime: 1000
         });
 
         pageFlipInstance.loadFromHTML(document.querySelectorAll('#book .page'));
