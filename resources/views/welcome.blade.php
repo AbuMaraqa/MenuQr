@@ -64,86 +64,47 @@
             border-radius: 10px;
         }
 
-        .brand-header {
-            text-align: center;
-            margin-bottom: 30px;
-            margin-top: 10px;
-        }
-
-        .brand-header h1 {
-            color: #f59e0b;
-            margin: 0;
-            font-size: 2.2rem;
-            text-shadow: 0 3px 6px rgba(0,0,0,0.8);
-        }
-
-        .brand-header p {
-            color: #ccc;
-            margin: 5px 0 0;
-            font-size: 1.1rem;
-        }
-
         .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
             width: 100%;
             padding-bottom: 50px;
         }
 
         .category-card {
-            background: #1a1a1a;
-            border-radius: 15px;
+            background: #000;
+            border-radius: 8px; /* نفس انحناء صفحات المنيو */
             overflow: hidden;
             position: relative;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* نفس ظل صفحات المنيو */
             transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
             border: 1px solid rgba(245, 158, 11, 0.1);
             display: flex;
             flex-direction: column;
-            aspect-ratio: 1 / 1.1;
         }
 
         .category-card:active {
             transform: scale(0.95);
         }
 
-        .category-img-wrapper {
-            width: 100%;
-            flex: 1;
-            overflow: hidden;
-            background: #000;
-        }
-
         .category-img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto;
+            object-fit: contain;
             transition: transform 0.4s ease;
+            display: block;
         }
 
         .category-card:hover .category-img {
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
 
         .category-card:hover {
             border-color: rgba(245, 158, 11, 0.5);
             box-shadow: 0 8px 20px rgba(245, 158, 11, 0.2);
         }
-
-        .category-title {
-            background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, transparent 100%);
-            color: #fff;
-            padding: 15px 10px 10px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.1rem;
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-        }
-
 
         /* ----- واجهة الكتاب ----- */
         #book-section {
@@ -249,21 +210,12 @@
 
 <div class="app-container">
 
-    <!-- القسم الأول: شبكة الأقسام -->
+    <!-- القسم الأول: قائمة الأقسام -->
     <div id="categories-section">
-        <div class="brand-header">
-            <h1>Snack Corner</h1>
-            <p>اختر القسم لرؤية المنيو</p>
-        </div>
-        
         <div class="categories-grid">
             @foreach($categories as $category)
                 <div class="category-card" onclick="openCategory({{ $category->id }})">
-                    <div class="category-img-wrapper">
-                        <!-- نستخدم الصورة الخاصة بالقسم التي تم رفعها في Filament -->
-                        <img class="category-img" src="{{ $category->getFirstMediaUrl('thumb') ?: 'https://via.placeholder.com/300x300.png?text=بدون+صورة' }}" alt="{{ $category->name }}">
-                    </div>
-                    <div class="category-title">{{ $category->name }}</div>
+                    <img class="category-img" src="{{ $category->getFirstMediaUrl('thumb') ?: 'https://via.placeholder.com/400x600.png?text=بدون+صورة' }}" alt="صورة القسم">
                 </div>
             @endforeach
         </div>
@@ -319,20 +271,27 @@
         const bookWrapper = document.getElementById('book-wrapper');
         const noPagesMsg = document.getElementById('no-pages-msg');
         const hint = document.getElementById('hint');
-        const bookDOM = document.getElementById('book');
-
+        
         // إخفاء الأقسام وإظهار قسم الكتاب
         categoriesSection.style.display = 'none';
         bookSection.style.display = 'flex';
         hint.style.display = 'flex';
         hint.style.opacity = '1';
 
-        // تفريغ الكتاب القديم
+        // تفريغ الكتاب القديم وإعادة بناء العنصر لتجنب أخطاء المكتبة بعد الـ destroy
         if(pageFlipInstance) {
             pageFlipInstance.destroy();
             pageFlipInstance = null;
         }
-        bookDOM.innerHTML = '';
+
+        let oldBook = document.getElementById('book');
+        if(oldBook) {
+            oldBook.remove();
+        }
+
+        const bookDOM = document.createElement('div');
+        bookDOM.id = 'book';
+        bookWrapper.appendChild(bookDOM);
 
         if (!pages || pages.length === 0) {
             // لا يوجد صفحات
@@ -397,8 +356,8 @@
         
         // إيقاف الكتاب إذا كان يعمل
         if(pageFlipInstance) {
-            pageFlipInstance.destroy();
-            pageFlipInstance = null;
+            // لا تدمر الكتاب هنا بالكامل لتجنب المشاكل في زر العودة السريع
+            // سيتم تدميره وإعادة بنائه عند الضغط على قسم جديد في openCategory
         }
     }
 </script>
