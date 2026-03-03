@@ -401,8 +401,11 @@
 
         // تهيئة Swiper
         swiperInstance = new Swiper('.swiper', {
-            // أزلنا تأثير الـ flip لأننا فعلنا الزوم
-            effect: 'slide', // تمرير أفقي عادي بدلاً من التقليب
+            // تأثير 'cards' يعطي حركة 3D جميلة ومناسبة بدلاً من التقليب العادي للصفحات
+            effect: 'cards',
+            cardsEffect: {
+                slideShadows: true,
+            },
             grabCursor: true,
             loop: false,
             speed: 500,
