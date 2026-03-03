@@ -119,7 +119,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 15px;
+            padding: 0; /* إزالة الـ padding لكي تلامس الصورة الحواف */
             background: #000;
             z-index: 10;
         }
@@ -195,13 +195,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 30px; /* لترك مساحة لزر العودة */
+            margin-top: 0; /* إزالة الهامش العلوي */
         }
 
         .page {
             background-color: #000000;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-radius: 0; /* إزالة الانحناء لكي تغطي الصورة الزوايا الميتة */
+            box-shadow: none;
             overflow: hidden;
             display: flex;
             justify-content: center;
@@ -370,15 +370,18 @@
             bookDOM.appendChild(pageDiv);
         });
 
+        // أخذ مقاسات الشاشة لضبط نسبة حجم الكتاب (Aspect Ratio) تلقائياً
+        const rect = bookWrapper.getBoundingClientRect();
+
         // تهيئة PageFlip من جديد
         pageFlipInstance = new St.PageFlip(bookDOM, {
-            width: 320,
-            height: 650,
+            width: rect.width || 400,
+            height: rect.height || 850,
             size: "stretch",
             minWidth: 300,
-            maxWidth: 400,
+            maxWidth: 1000,
             minHeight: 400,
-            maxHeight: 850,
+            maxHeight: 1500,
             showCover: false,
             mobileScrollSupport: true,
             usePortrait: true, /* هذا الخيار يضمن أن يظهر بشكل صفحة واحدة في الهواتف */
