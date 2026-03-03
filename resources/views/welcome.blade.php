@@ -219,29 +219,30 @@
             align-items: center;
             justify-content: center;
             margin-top: 0; /* إزالة الهامش العلوي */
-            /* تحسين العرض للأجهزة التي تعمل بنظام WebKit */
-            -webkit-transform: translateZ(0);
-            transform: translateZ(0);
+            /* حل أساسي لمشكلة الحسابات العكسية التي تسبب قص في المتصفحات بسبب الـ rtl */
+            direction: ltr !important; 
+        }
+
+        /* إجبار محركات (Safari/WebKit/Samsung) على معالجة الـ 3D بشكل صحيح ومنع التسطيح الذي يسبب المثلث الأسود */
+        .stf__wrapper, .stf__block, .stf__item {
+            -webkit-transform-style: preserve-3d !important;
+            transform-style: preserve-3d !important;
         }
 
         #book {
-            -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
+            -webkit-transform-style: preserve-3d !important;
+            transform-style: preserve-3d !important;
         }
 
         .page {
             background-color: #000000;
-            border-radius: 0; /* إزالة الانحناء لكي تغطي الصورة الزوايا الميتة */
+            border-radius: 0; 
             box-shadow: none;
-            overflow: hidden;
-            display: block; /* تغيير flex إلى block لتجنب مشاكل إعادة الحساب أثناء الحركة */
-            
-            /* تفعيل الهاردوير لتسريع الحركة ومنع التقطيع (Glitch) في متصفحات السفاري/الايفون */
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-            will-change: transform;
+            /* السماح بتجاوز الحواف يمنع تفاعل Safari السيء عند دوران العنصر، وهو ما يسبب القطع المفاجئ */
+            overflow: visible !important; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .page img {
@@ -251,12 +252,8 @@
             background-color: transparent;
             pointer-events: none;
             display: block;
-            
-            /* منع الوميض بالتحريك */
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
+            /* منع سحب الصورة بالخطأ */
+            -webkit-user-drag: none;
         }
 
         /* تلميح السحب */
