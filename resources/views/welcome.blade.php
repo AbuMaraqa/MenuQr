@@ -15,8 +15,9 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* منع السحب والإفلات الأفتراضي وعمليات التمرير للمتصفح على الهاتف لكي لا يتعارض مع الكتاب */
         body {
-            background: #000; /* تغيير الخلفية للأسود السادة لتوحيد المظهر */
+            background: linear-gradient(135deg, #000000 0%, #000000 100%);
             margin: 0;
             padding: 0;
             display: flex;
@@ -24,13 +25,15 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
-            touch-action: none;
+            touch-action: none; /* مهم جداً للهاتف لمنع سحب المتصفح بدلاً من الكتاب */
             font-family: 'Tajawal', sans-serif;
             color: #fff;
         }
 
+        /* حاوية بحجم شاشة الهاتف لإجبار عرض صفحة واحدة */
         .app-container {
             width: 100%;
+            max-width: 450px;
             height: 100%;
             position: relative;
             display: flex;
@@ -47,6 +50,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            /* Scrollbar styling */
             scrollbar-width: thin;
             scrollbar-color: #f59e0b #222;
         }
@@ -72,11 +76,11 @@
 
         .category-card {
             background: #000;
-            border-radius: 8px;
+            border-radius: 8px; /* نفس انحناء صفحات المنيو */
             overflow: hidden;
             position: relative;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* نفس ظل صفحات المنيو */
             transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
             border: 1px solid rgba(245, 158, 11, 0.1);
             display: flex;
@@ -108,23 +112,23 @@
         #book-section {
             width: 100%;
             height: 100%;
-            position: fixed; /* تغيير إلى fixed لضمان التغطية الكاملة للشاشة */
+            position: absolute;
             top: 0;
             left: 0;
             display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 0;
+            padding: 15px;
             background: #000;
-            z-index: 9999;
+            z-index: 10;
         }
 
         .back-btn {
             position: absolute;
-            top: env(safe-area-inset-top, 20px); /* مراعاة النوتش في الهواتف الحديثة */
+            top: 20px;
             right: 20px;
-            background: rgba(0,0,0, 0.6); /* جعل الخلفية أغمق قليلاً للوضوح فوق الصورة */
+            background: rgba(30,30,30, 0.8);
             color: #f59e0b;
             border: 1px solid #f59e0b;
             border-radius: 20px;
@@ -133,7 +137,7 @@
             font-family: inherit;
             font-weight: bold;
             cursor: pointer;
-            z-index: 110; /* زيادة z-index لضمان الظهور فوق الأسهم */
+            z-index: 100;
             display: flex;
             align-items: center;
             gap: 5px;
@@ -141,28 +145,48 @@
             transition: all 0.2s ease;
         }
 
-        /* تنسيق الأسهم لضمان ظهورها بوضوح فوق الصورة كاملة الصفحة */
+        .back-btn:hover, .back-btn:active {
+            background: #f59e0b;
+            color: #000;
+        }
+
+        /* ----- أزرار التقليب (الأسهم) ----- */
         .nav-arrow {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0,0,0, 0.5); /* خلفية نصف شفافة */
+            background: rgba(30,30,30, 0.8);
             color: #f59e0b;
-            border: none; /* إزالة الحدود لمظهر عصري */
+            border: 1px solid #f59e0b;
             border-radius: 50%;
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             z-index: 100;
-            backdrop-filter: blur(3px);
+            backdrop-filter: blur(5px);
             transition: all 0.2s ease;
         }
 
-        .right-arrow { right: 10px; }
-        .left-arrow { left: 10px; }
+        .nav-arrow:hover, .nav-arrow:active {
+            background: #f59e0b;
+            color: #000;
+        }
+
+        .nav-arrow svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .right-arrow {
+            right: 15px;
+        }
+
+        .left-arrow {
+            left: 15px;
+        }
 
         .flip-book-wrapper {
             opacity: 1;
@@ -171,14 +195,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 0; /* إزالة الهامش العلوي */
+            margin-top: 30px; /* لترك مساحة لزر العودة */
         }
 
-        /* تنسيق الصفحة لتكون كاملة وبدون حواف */
         .page {
-            background-color: #000;
-            border-radius: 0; /* إزالة انحناء الزوايا لكي تلتصق بالحافة */
-            box-shadow: none; /* إزالة الظل الذي قد يظهر كإطار */
+            background-color: #000000;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             overflow: hidden;
             display: flex;
             justify-content: center;
@@ -188,7 +211,8 @@
         .page img {
             width: 100%;
             height: 100%;
-            object-fit: fill; /* تغيير التعبئة لتغطي الشاشة بالكامل دون أي هوامش */
+            object-fit: contain;
+            object-position: center;
             background-color: transparent;
             pointer-events: none;
         }
@@ -196,11 +220,8 @@
         /* تلميح السحب */
         .swipe-hint {
             position: absolute;
-            bottom: env(safe-area-inset-bottom, 30px); /* مراعاة منطقة السحب في الشاشات الكاملة */
-            color: #fff;
-            background: rgba(0,0,0,0.5);
-            padding: 5px 15px;
-            border-radius: 20px;
+            bottom: 30px;
+            color: rgba(255, 255, 255, 0.6);
             font-size: 0.9rem;
             display: flex;
             align-items: center;
@@ -211,19 +232,17 @@
         }
 
         @keyframes slideLeft {
-            0%, 100% { transform: translateX(0); opacity: 0.8; }
+            0%, 100% { transform: translateX(0); opacity: 0.5; }
             50% { transform: translateX(-15px); opacity: 1; }
         }
 
+        /* رسالة عدم وجود صفحات */
         .no-pages-msg {
             display: none;
             color: #ccc;
             font-size: 1.2rem;
             text-align: center;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            margin-top: 50%;
         }
     </style>
 </head>
@@ -280,6 +299,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"></script>
 <script>
+    // تخزين بيانات صفحات كل قسم في كائن JS
     const categoryData = {
         @foreach($categories as $category)
             {{ $category->id }}: [
@@ -294,32 +314,39 @@
 
     function openCategory(categoryId) {
         const pages = categoryData[categoryId];
+        
         const categoriesSection = document.getElementById('categories-section');
         const bookSection = document.getElementById('book-section');
         const bookWrapper = document.getElementById('book-wrapper');
         const noPagesMsg = document.getElementById('no-pages-msg');
         const hint = document.getElementById('hint');
+        
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
 
+        // إخفاء الأقسام وإظهار قسم الكتاب
         categoriesSection.style.display = 'none';
         bookSection.style.display = 'flex';
         hint.style.display = 'flex';
         hint.style.opacity = '1';
 
+        // تفريغ الكتاب القديم وإعادة بناء العنصر لتجنب أخطاء المكتبة بعد الـ destroy
         if(pageFlipInstance) {
             pageFlipInstance.destroy();
             pageFlipInstance = null;
         }
 
         let oldBook = document.getElementById('book');
-        if(oldBook) oldBook.remove();
+        if(oldBook) {
+            oldBook.remove();
+        }
 
         const bookDOM = document.createElement('div');
         bookDOM.id = 'book';
         bookWrapper.appendChild(bookDOM);
 
         if (!pages || pages.length === 0) {
+            // لا يوجد صفحات
             bookWrapper.style.display = 'none';
             hint.style.display = 'none';
             prevBtn.style.display = 'none';
@@ -328,37 +355,39 @@
             return;
         }
 
+        // يوجد صفحات
         noPagesMsg.style.display = 'none';
         bookWrapper.style.display = 'flex';
         prevBtn.style.display = 'flex';
         nextBtn.style.display = 'flex';
 
+        // إنشاء الصفحات كعناصر HTML
         pages.forEach(url => {
             const pageDiv = document.createElement('div');
             pageDiv.className = 'page';
             const img = document.createElement('img');
             img.src = url;
-            // إضافة خاصية لمنع التحميل الكسول الافتراضي لضمان سرعة الظهور عند التقليب
-            img.loading = "eager"; 
             pageDiv.appendChild(img);
             bookDOM.appendChild(pageDiv);
         });
 
-        // جلب أبعاد الحاوية لضبط الكتاب عليها تماماً
-        const containerRect = bookWrapper.getBoundingClientRect();
-
+        // تهيئة PageFlip من جديد
         pageFlipInstance = new St.PageFlip(bookDOM, {
-            // استخدام أبعاد الحاوية الحقيقية
-            width: containerRect.width, 
-            height: containerRect.height,
-            size: "stretch", // تمدد ليملأ الحاوية
+            width: 320,
+            height: 650,
+            size: "stretch",
+            minWidth: 300,
+            maxWidth: 400,
+            minHeight: 400,
+            maxHeight: 850,
             showCover: false,
             mobileScrollSupport: true,
-            usePortrait: true,
-            maxShadowOpacity: 0.2, // تقليل الظل قليلاً لمظهر أنظف على الصور الكاملة
+            usePortrait: true, /* هذا الخيار يضمن أن يظهر بشكل صفحة واحدة في الهواتف */
+            maxShadowOpacity: 0.3,
+            renderOnlyPageLengthChange: true,
             showPageCorners: true,
-            swipeDistance: 15,
-            flippingTime: 800 // تسريع التقليب قليلاً
+            swipeDistance: 10, /* تقليل المسافة لتسهيل السحب على الهاتف */
+            flippingTime: 1000
         });
 
         pageFlipInstance.loadFromHTML(document.querySelectorAll('#book .page'));
@@ -367,7 +396,7 @@
             const flipSound = document.getElementById('flip-sound');
             if(flipSound) {
                 flipSound.currentTime = 0;
-                flipSound.play().catch(error => console.log('Audio blocked:', error));
+                flipSound.play().catch(error => console.log('المتصفح منع الصوت:', error));
             }
 
             if(hint && hint.style.display !== 'none') {
@@ -379,22 +408,29 @@
     }
 
     function backToCategories() {
+        // إخفاء قسم الكتاب والعودة للأقسام
         document.getElementById('book-section').style.display = 'none';
         document.getElementById('categories-section').style.display = 'flex';
+        
+        // إيقاف الكتاب إذا كان يعمل
+        if(pageFlipInstance) {
+            // لا تدمر الكتاب هنا بالكامل لتجنب المشاكل في زر العودة السريع
+            // سيتم تدميره وإعادة بنائه عند الضغط على قسم جديد في openCategory
+        }
     }
 
-    function flipToNext() { if (pageFlipInstance) pageFlipInstance.flipNext(); }
-    function flipToPrev() { if (pageFlipInstance) pageFlipInstance.flipPrev(); }
-
-    // إعادة تهيئة الكتاب عند تغيير حجم الشاشة (مثلاً تدوير الهاتف) لضمان بقائه كامل الشاشة
-    window.addEventListener('resize', () => {
-        if (pageFlipInstance && document.getElementById('book-section').style.display === 'flex') {
-            const wrapper = document.getElementById('book-wrapper');
-            const rect = wrapper.getBoundingClientRect();
-            pageFlipInstance.updateFromHtml(document.querySelectorAll('#book .page'));
-            // قد تحتاج مكتبة PageFlip إلى إعادة تحميل أو تحديث الأبعاد هنا إذا لم تتجاوب تلقائياً مع stretch
+    // دوال التقليب بواسطة الأسهم
+    function flipToNext() {
+        if (pageFlipInstance) {
+            pageFlipInstance.flipNext();
         }
-    });
+    }
+
+    function flipToPrev() {
+        if (pageFlipInstance) {
+            pageFlipInstance.flipPrev();
+        }
+    }
 </script>
 </body>
 </html>
