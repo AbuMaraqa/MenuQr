@@ -15,6 +15,7 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* منع السحب والإفلات الأفتراضي وعمليات التمرير للمتصفح على الهاتف لكي لا يتعارض مع الكتاب */
         body {
             background: linear-gradient(135deg, #000000 0%, #000000 100%);
             margin: 0;
@@ -24,6 +25,7 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
+            touch-action: none; /* مهم جداً للهاتف لمنع سحب المتصفح بدلاً من الكتاب */
             font-family: 'Tajawal', sans-serif;
             color: #fff;
         }
@@ -326,10 +328,11 @@
             maxHeight: 850,
             showCover: false,
             mobileScrollSupport: true,
-            usePortrait: true,
+            usePortrait: true, /* هذا الخيار يضمن أن يظهر بشكل صفحة واحدة في الهواتف */
             maxShadowOpacity: 0.3,
             showPageCorners: true,
-            swipeDistance: 30
+            swipeDistance: 10, /* تقليل المسافة لتسهيل السحب على الهاتف */
+            flippingTime: 1000
         });
 
         pageFlipInstance.loadFromHTML(document.querySelectorAll('#book .page'));
