@@ -321,14 +321,13 @@
         pageFlipInstance = new St.PageFlip(bookDOM, {
             width: 320,
             height: 650,
-            size: "stretch",   
-            touch: true,
+            size: "stretch",
             minWidth: 300,
             maxWidth: 400,
             minHeight: 400,
             maxHeight: 850,
             showCover: false,
-            mobileScrollSupport: false,
+            mobileScrollSupport: true,
             usePortrait: true, /* هذا الخيار يضمن أن يظهر بشكل صفحة واحدة في الهواتف */
             maxShadowOpacity: 0.3,
             showPageCorners: true,
