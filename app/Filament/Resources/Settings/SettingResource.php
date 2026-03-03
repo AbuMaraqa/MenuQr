@@ -20,9 +20,20 @@ class SettingResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static ?string $modelLabel = __('messages.setting');
-    protected static ?string $pluralModelLabel = __('messages.settings');
-    protected static ?string $navigationLabel = __('messages.settings');
+    public static function getModelLabel(): string
+    {
+        return __('messages.setting');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('messages.settings');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('messages.settings');
+    }
 
     protected static ?string $recordTitleAttribute = 'Settings';
 

@@ -20,9 +20,20 @@ class CategoryResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static ?string $modelLabel = __('messages.category');
-    protected static ?string $pluralModelLabel = __('messages.categories');
-    protected static ?string $navigationLabel = __('messages.categories');
+    public static function getModelLabel(): string
+    {
+        return __('messages.category');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('messages.categories');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('messages.categories');
+    }
 
     protected static ?string $recordTitleAttribute = 'Category';
 

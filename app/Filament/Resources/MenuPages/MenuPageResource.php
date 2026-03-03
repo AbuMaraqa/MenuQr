@@ -20,9 +20,20 @@ class MenuPageResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static ?string $modelLabel = __('messages.menu_page');
-    protected static ?string $pluralModelLabel = __('messages.menu_pages');
-    protected static ?string $navigationLabel = __('messages.menu_pages');
+    public static function getModelLabel(): string
+    {
+        return __('messages.menu_page');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('messages.menu_pages');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('messages.menu_pages');
+    }
 
     protected static ?string $recordTitleAttribute = 'MenuPage';
 
