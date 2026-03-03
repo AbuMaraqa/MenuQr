@@ -38,4 +38,10 @@ return [
     'menu_pages_image_description' => 'صورة المنيو',
     'menu_pages_image_required' => 'صورة المنيو مطلوبة',
 
+    'setting' => 'إعداد',
+    'settings' => 'الإعدادات',
+    'menu_page' => 'صفحة قائمة',
+    'menu_pages' => 'صفحات القوائم',
+    'category' => 'تصنيف',
+    'categories' => 'التصنيفات',
 ];

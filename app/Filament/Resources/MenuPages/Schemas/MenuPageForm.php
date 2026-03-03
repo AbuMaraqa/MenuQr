@@ -15,7 +15,8 @@ class MenuPageForm
         return $schema
             ->components([
 
-                TextInput::make('name'),
+                TextInput::make('name')
+                    ->label(__('messages.name')),
 
                 Select::make('category_id')
                     ->label(__('messages.category'))

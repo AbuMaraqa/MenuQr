@@ -20,6 +20,10 @@ class SettingResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    protected static ?string $modelLabel = __('messages.setting');
+    protected static ?string $pluralModelLabel = __('messages.settings');
+    protected static ?string $navigationLabel = __('messages.settings');
+
     protected static ?string $recordTitleAttribute = 'Settings';
 
     public static function form(Schema $schema): Schema
