@@ -29,7 +29,7 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
-            touch-action: none;
+            /* تم إزالة touch-action: none; لأنها تعطل زووم الآيفون */
             font-family: 'Tajawal', sans-serif;
             color: #fff;
         }
@@ -223,27 +223,26 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            -webkit-backface-visibility: hidden !important;
-            backface-visibility: hidden !important;
-            transform-style: preserve-3d !important;
+            overflow: hidden; /* مهم جداً لاحتواء الصورة عند التكبير */
         }
 
         .swiper-zoom-container {
-            -webkit-backface-visibility: hidden !important;
-            backface-visibility: hidden !important;
-            transform-style: preserve-3d !important;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* تم إزالة خصائص الـ 3D من هنا لأنها تسبب مشاكل الـ Zoom out في iOS */
         }
 
         .swiper-slide img {
             width: 100%;
             height: 100%;
-            object-fit: fill;
+            object-fit: contain; /* أفضل لعرض المنيو باحترافية وبدون تشويه للأبعاد */
             background-color: transparent;
             user-select: none;
             -webkit-user-drag: none;
-            -webkit-backface-visibility: hidden !important;
-            backface-visibility: hidden !important;
-            transform: translateZ(0); 
+            /* تم إزالة translateZ والخصائص التي تتعارض مع محرك سفاري */
         }
 
         .swipe-hint {
@@ -395,11 +394,12 @@
         swiperInstance = new Swiper('.swiper', {
             effect: 'flip',
             grabCursor: true,
-            loop: true,
+            loop: false,
             speed: 800,
             zoom: {
-                maxRatio: 3,
-                minRatio: 1,
+                maxRatio: 3, // أقصى حد للتكبير
+                minRatio: 1, // الحد الأدنى (الوضع الطبيعي)
+                toggle: true, // تفعيل التكبير/التصغير بالنقر المزدوج (ممتاز للآيفون)
             },
             flipEffect: {
                 slideShadows: false,
