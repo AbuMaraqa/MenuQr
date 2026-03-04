@@ -144,9 +144,9 @@
             align-items: center;
             justify-content: center;
             padding: 0;
-            /* التعديلات هنا */
-            background: rgba(0, 0, 0, 0.4); /* خلفية شبه شفافة بدلاً من الأسود القاتم */
-            backdrop-filter: blur(8px); /* تأثير ضبابي احترافي */
+            /* التعديل الجديد هنا: خلفية شفافة مع تأثير ضبابي احترافي */
+            background: rgba(0, 0, 0, 0.4); /* خلفية شبه شفافة */
+            backdrop-filter: blur(8px); /* تأثير ضبابي */
             -webkit-backdrop-filter: blur(8px); /* لدعم أجهزة الآيفون وسفاري */
             z-index: 10;
         }
@@ -223,34 +223,31 @@
             background-color: transparent;
             display: flex;
             justify-content: center;
-            align-items: flex-start; 
-            overflow-y: auto; 
-            -webkit-overflow-scrolling: touch; 
-            
-            /* إضافة مسافة أمان سفلية لضمان ظهور آخر الصورة بالكامل */
-            padding-bottom: 120px; 
+            align-items: center; /* تمركز الصورة عمودياً وأفقياً */
+            /* إلغاء التمرير الرأسي */
+            overflow: hidden; 
         }
 
         .swiper-zoom-container {
             width: 100%;
-            height: auto;
-            min-height: 100%;
+            height: 100%; /* ملء ارتفاع الحاوية بالكامل */
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* يبدأ من الأعلى */
+            align-items: center; /* تمركز محتوى الزووم */
         }
 
         .swiper-slide img {
-            width: 100% !important; /* إجبار الصورة على ملء عرض الشاشة بالكامل لإخفاء الهوامش */
-            height: auto !important; /* ترك الطول يتحدد تلقائياً بناءً على العرض */
+            /* التغيير الجوهري هنا: نستخدم contain مع أبعاد 100% لإلغاء التمرير */
+            width: 100% !important; 
+            height: 100% !important; 
             max-width: 100%;
-            max-height: none; /* إزالة الحد الأقصى للطول حتى لا تنكمش الصورة */
-            object-fit: contain;
+            max-height: 100%; 
+            object-fit: contain; /* احتواء الصورة بالكامل داخل الشاشة بدون تشويه */
             display: block;
-            margin: 0 auto;
+            margin: auto; /* لضمان تمركز الصورة دائماً */
             user-select: none;
             -webkit-user-drag: none;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease; /* نعومة العودة للمكان الطبيعي */
         }
 
         .swipe-hint {
