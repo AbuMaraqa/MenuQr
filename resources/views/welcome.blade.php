@@ -223,14 +223,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            -webkit-backface-visibility: hidden !important;
+            backface-visibility: hidden !important;
+            transform-style: preserve-3d !important;
         }
 
         .swiper-zoom-container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            -webkit-backface-visibility: hidden !important;
+            backface-visibility: hidden !important;
+            transform-style: preserve-3d !important;
         }
 
         .swiper-slide img {
@@ -240,6 +241,9 @@
             background-color: transparent;
             user-select: none;
             -webkit-user-drag: none;
+            -webkit-backface-visibility: hidden !important;
+            backface-visibility: hidden !important;
+            transform: translateZ(0); 
         }
 
         .swipe-hint {
@@ -313,7 +317,7 @@
         </div>
 
         <div class="swipe-hint" id="hint">
-            <span>اسحب للتقليب أو انقر مرتين للتكبير</span>
+            <span>اسحب للتقليب</span>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
         </div>
     </div>
@@ -391,16 +395,14 @@
         swiperInstance = new Swiper('.swiper', {
             effect: 'flip',
             grabCursor: true,
-            loop: false,
+            loop: true,
             speed: 800,
             zoom: {
                 maxRatio: 3,
                 minRatio: 1,
-                toggle: true,
             },
             flipEffect: {
                 slideShadows: false,
-                limitRotation: true,
             },
             on: {
                 slideChange: function () {
