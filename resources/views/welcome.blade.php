@@ -232,17 +232,20 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* تم إزالة خصائص الـ 3D من هنا لأنها تسبب مشاكل الـ Zoom out في iOS */
         }
 
         .swiper-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* أفضل لعرض المنيو باحترافية وبدون تشويه للأبعاد */
-            background-color: transparent;
+            /* التغيير الجوهري هنا: نستخدم auto بدلاً من 100% لضبط أبعاد الزووم */
+            width: auto !important;
+            height: auto !important;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+            margin: auto; /* لضمان تمركز الصورة دائماً */
             user-select: none;
             -webkit-user-drag: none;
-            /* تم إزالة translateZ والخصائص التي تتعارض مع محرك سفاري */
+            transition: transform 0.3s ease; /* نعومة العودة للمكان الطبيعي */
         }
 
         .swipe-hint {
