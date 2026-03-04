@@ -223,15 +223,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            -webkit-backface-visibility: hidden !important;
-            backface-visibility: hidden !important;
-            transform-style: preserve-3d !important;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
         }
 
         .swiper-zoom-container {
-            -webkit-backface-visibility: hidden !important;
-            backface-visibility: hidden !important;
-            transform-style: preserve-3d !important;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .swiper-slide img {
@@ -241,9 +243,8 @@
             background-color: transparent;
             user-select: none;
             -webkit-user-drag: none;
-            -webkit-backface-visibility: hidden !important;
-            backface-visibility: hidden !important;
-            transform: translateZ(0); 
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
         }
 
         .swipe-hint {
