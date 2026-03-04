@@ -225,30 +225,31 @@
             background-color: transparent;
             display: flex;
             justify-content: center;
-            align-items: center;
-            overflow: hidden; /* مهم جداً لاحتواء الصورة عند التكبير */
+            align-items: flex-start; /* تغيير مهم: يبدأ عرض المنيو من أعلى الشاشة وليس المنتصف */
+            overflow-y: auto; /* السماح بالتمرير لأسفل (Scroll) لرؤية باقي المنيو */
+            -webkit-overflow-scrolling: touch; /* تمرير ناعم جداً للآيفون */
         }
 
         .swiper-zoom-container {
             width: 100%;
-            height: 100%;
+            height: auto;
+            min-height: 100%;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* يبدأ من الأعلى */
         }
 
         .swiper-slide img {
-            /* التغيير الجوهري هنا: نستخدم auto بدلاً من 100% لضبط أبعاد الزووم */
-            width: auto !important;
-            height: auto !important;
+            width: 100% !important; /* إجبار الصورة على ملء عرض الشاشة بالكامل لإخفاء الهوامش */
+            height: auto !important; /* ترك الطول يتحدد تلقائياً بناءً على العرض */
             max-width: 100%;
-            max-height: 100%;
+            max-height: none; /* إزالة الحد الأقصى للطول حتى لا تنكمش الصورة */
             object-fit: contain;
             display: block;
-            margin: auto; /* لضمان تمركز الصورة دائماً */
+            margin: 0 auto;
             user-select: none;
             -webkit-user-drag: none;
-            transition: transform 0.3s ease; /* نعومة العودة للمكان الطبيعي */
+            transition: transform 0.3s ease;
         }
 
         .swipe-hint {
