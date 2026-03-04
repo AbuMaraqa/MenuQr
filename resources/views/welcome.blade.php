@@ -234,6 +234,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            -webkit-backface-visibility: hidden !important;
+            backface-visibility: hidden !important;
         }
 
         .swiper-slide img {
@@ -243,6 +245,10 @@
             background-color: transparent;
             user-select: none;
             -webkit-user-drag: none;
+            -webkit-backface-visibility: hidden !important;
+            backface-visibility: hidden !important;
+            -webkit-transform: translateZ(0); 
+            transform: translateZ(0);
         }
 
         .swipe-hint {
