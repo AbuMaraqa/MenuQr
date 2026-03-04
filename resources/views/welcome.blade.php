@@ -34,7 +34,7 @@
 
         .app-container {
             width: 100%;
-            max-width: 450px;
+            max-width: 100%; /* تعديل مهم جداً: لضمان أخذ الصورة لكامل العرض */
             height: 100%;
             position: relative;
             display: flex;
@@ -144,10 +144,10 @@
             align-items: center;
             justify-content: center;
             padding: 0;
-            /* التعديل الجديد هنا: خلفية شفافة مع تأثير ضبابي احترافي */
-            background: rgba(0, 0, 0, 0.4); /* خلفية شبه شفافة */
-            backdrop-filter: blur(8px); /* تأثير ضبابي */
-            -webkit-backdrop-filter: blur(8px); /* لدعم أجهزة الآيفون وسفاري */
+            /* رجعنا الخلفية الشفافة مع الضبابية */
+            background: rgba(0, 0, 0, 0.5); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px); 
             z-index: 10;
         }
 
@@ -220,33 +220,32 @@
         }
 
         .swiper-slide {
+            background-color: transparent;
             display: flex;
             justify-content: center;
-            align-items: center; /* تمركز الصورة عمودياً وأفقياً */
-            /* إلغاء التمرير الرأسي */
-            overflow: hidden; 
+            align-items: center;
+            overflow: hidden; /* يمنع السكرول نهائياً */
         }
 
         .swiper-zoom-container {
             width: 100%;
-            height: 100%; /* ملء ارتفاع الحاوية بالكامل */
+            height: 100%;
             display: flex;
             justify-content: center;
-            align-items: center; /* تمركز محتوى الزووم */
+            align-items: center;
         }
 
         .swiper-slide img {
-            /* التغيير الجوهري هنا: نستخدم contain مع أبعاد 100% لإلغاء التمرير */
             width: 100% !important; 
             height: 100% !important; 
             max-width: 100%;
-            max-height: 100%; 
-            object-fit: contain; /* احتواء الصورة بالكامل داخل الشاشة بدون تشويه */
+            max-height: 100%;
+            object-fit: contain; /* يضمن ظهور الصورة بالكامل على مقاس الشاشة بالضبط */
             display: block;
-            margin: auto; /* لضمان تمركز الصورة دائماً */
+            margin: auto;
             user-select: none;
             -webkit-user-drag: none;
-            transition: transform 0.3s ease; /* نعومة العودة للمكان الطبيعي */
+            transition: transform 0.3s ease;
         }
 
         .swipe-hint {
