@@ -311,7 +311,7 @@
             عذراً، لا يوجد صفحات مضافة لهذا القسم حالياً.
         </div>
 
-        <div class="swiper" id="swiper-container-wrapper" style="display: none;">
+        <div class="swiper" id="swiper-container-wrapper" style="display: none;" dir="ltr">
             <div class="swiper-wrapper" id="swiper-wrapper">
             </div>
         </div>
