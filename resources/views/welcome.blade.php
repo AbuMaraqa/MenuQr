@@ -17,19 +17,17 @@
         }
 
         body {
-            @if(isset($setting) && $setting->getFirstMediaUrl('background'))
-            background: url("{{ $setting->getFirstMediaUrl('background') }}") center center / cover no-repeat fixed;
-            @else
-            background: linear-gradient(135deg, #000000 0%, #000000 100%);
-            @endif
+            /* أبقِ الكود الخاص بالخلفية كما هو */
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            
+            height: 100vh; /* للمتصفحات القديمة */
+            height: 100dvh; /* الحل السحري للآيفون والمتصفحات الحديثة */
+            
             overflow: hidden;
-            /* تم إزالة touch-action: none; لأنها تعطل زووم الآيفون */
             font-family: 'Tajawal', sans-serif;
             color: #fff;
         }
@@ -225,9 +223,12 @@
             background-color: transparent;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* تغيير مهم: يبدأ عرض المنيو من أعلى الشاشة وليس المنتصف */
-            overflow-y: auto; /* السماح بالتمرير لأسفل (Scroll) لرؤية باقي المنيو */
-            -webkit-overflow-scrolling: touch; /* تمرير ناعم جداً للآيفون */
+            align-items: flex-start; 
+            overflow-y: auto; 
+            -webkit-overflow-scrolling: touch; 
+            
+            /* إضافة مسافة أمان سفلية لضمان ظهور آخر الصورة بالكامل */
+            padding-bottom: 120px; 
         }
 
         .swiper-zoom-container {
