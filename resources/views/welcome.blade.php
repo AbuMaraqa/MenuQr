@@ -17,24 +17,26 @@
         }
 
         body {
-            /* أبقِ الكود الخاص بالخلفية كما هو */
+            @if(isset($setting) && $setting->getFirstMediaUrl('background'))
+            background: url("{{ $setting->getFirstMediaUrl('background') }}") center center / cover no-repeat fixed;
+            @else
+            background: linear-gradient(135deg, #000000 0%, #000000 100%);
+            @endif
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            
-            height: 100vh; /* للمتصفحات القديمة */
-            height: 100dvh; /* الحل السحري للآيفون والمتصفحات الحديثة */
-            
+            height: 100vh;
             overflow: hidden;
+            /* تم إزالة touch-action: none; لأنها تعطل زووم الآيفون */
             font-family: 'Tajawal', sans-serif;
             color: #fff;
         }
 
         .app-container {
             width: 100%;
-            max-width: 100%; /* تعديل مهم جداً: لضمان أخذ الصورة لكامل العرض */
+            max-width: 450px;
             height: 100%;
             position: relative;
             display: flex;
@@ -144,10 +146,10 @@
             align-items: center;
             justify-content: center;
             padding: 0;
-            /* رجعنا الخلفية الشفافة مع الضبابية */
-            background: rgba(0, 0, 0, 0.5); 
-            backdrop-filter: blur(10px); 
-            -webkit-backdrop-filter: blur(10px); 
+            /* التعديلات هنا */
+            background: rgba(0, 0, 0, 0.4); /* خلفية شبه شفافة بدلاً من الأسود القاتم */
+            backdrop-filter: blur(8px); /* تأثير ضبابي احترافي */
+            -webkit-backdrop-filter: blur(8px); /* لدعم أجهزة الآيفون وسفاري */
             z-index: 10;
         }
 
@@ -223,26 +225,28 @@
             background-color: transparent;
             display: flex;
             justify-content: center;
-            align-items: center;
-            overflow: hidden; /* يمنع السكرول نهائياً */
+            align-items: flex-start; /* تغيير مهم: يبدأ عرض المنيو من أعلى الشاشة وليس المنتصف */
+            overflow-y: auto; /* السماح بالتمرير لأسفل (Scroll) لرؤية باقي المنيو */
+            -webkit-overflow-scrolling: touch; /* تمرير ناعم جداً للآيفون */
         }
 
         .swiper-zoom-container {
             width: 100%;
-            height: 100%;
+            height: auto;
+            min-height: 100%;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* يبدأ من الأعلى */
         }
 
         .swiper-slide img {
-            width: 100% !important; 
-            height: 100% !important; 
+            width: 100% !important; /* إجبار الصورة على ملء عرض الشاشة بالكامل لإخفاء الهوامش */
+            height: auto !important; /* ترك الطول يتحدد تلقائياً بناءً على العرض */
             max-width: 100%;
-            max-height: 100%;
-            object-fit: contain; /* يضمن ظهور الصورة بالكامل على مقاس الشاشة بالضبط */
+            max-height: none; /* إزالة الحد الأقصى للطول حتى لا تنكمش الصورة */
+            object-fit: contain;
             display: block;
-            margin: auto;
+            margin: 0 auto;
             user-select: none;
             -webkit-user-drag: none;
             transition: transform 0.3s ease;
@@ -394,8 +398,10 @@
             swiperWrapper.appendChild(slideDiv);
         });
 
-        swiperInstance = new Swiper('.swiper', {
-            effect: 'flip',
+        const isIOS = (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
+
+        const swiperConfig = {
+            effect: isIOS ? 'creative' : 'flip',
             grabCursor: true,
             loop: false,
             speed: 800,
@@ -403,9 +409,6 @@
                 maxRatio: 3, // أقصى حد للتكبير
                 minRatio: 1, // الحد الأدنى (الوضع الطبيعي)
                 toggle: true, // تفعيل التكبير/التصغير بالنقر المزدوج (ممتاز للآيفون)
-            },
-            flipEffect: {
-                slideShadows: false,
             },
             on: {
                 slideChange: function () {
@@ -422,7 +425,27 @@
                     }
                 }
             }
-        });
+        };
+
+        if (isIOS) {
+            // تأثير بديل رائع يشبه تقليب الصفحات يعمل بشكل مثالي مع الـ Zoom في غوغل و سفاري
+            swiperConfig.creativeEffect = {
+                prev: {
+                    shadow: true,
+                    translate: ['-20%', 0, -1],
+                },
+                next: {
+                    translate: ['100%', 0, 0],
+                },
+            };
+        } else {
+            // تأثير القلب الافتراضي للأجهزة الأخرى
+            swiperConfig.flipEffect = {
+                slideShadows: false,
+            };
+        }
+
+        swiperInstance = new Swiper('.swiper', swiperConfig);
     }
 
     function backToCategories() {
