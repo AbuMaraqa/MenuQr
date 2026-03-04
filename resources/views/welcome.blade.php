@@ -17,19 +17,17 @@
         }
 
         body {
-            @if(isset($setting) && $setting->getFirstMediaUrl('background'))
-            background: url("{{ $setting->getFirstMediaUrl('background') }}") center center / cover no-repeat fixed;
-            @else
-            background: linear-gradient(135deg, #000000 0%, #000000 100%);
-            @endif
+            /* أبقِ الكود الخاص بالخلفية كما هو */
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            
+            height: 100vh; /* للمتصفحات القديمة */
+            height: 100dvh; /* الحل السحري للآيفون والمتصفحات الحديثة */
+            
             overflow: hidden;
-            /* تم إزالة touch-action: none; لأنها تعطل زووم الآيفون */
             font-family: 'Tajawal', sans-serif;
             color: #fff;
         }
@@ -146,7 +144,10 @@
             align-items: center;
             justify-content: center;
             padding: 0;
-            background: #000;
+            /* التعديل الجديد هنا: خلفية شفافة مع تأثير ضبابي احترافي */
+            background: rgba(0, 0, 0, 0.4); /* خلفية شبه شفافة */
+            backdrop-filter: blur(8px); /* تأثير ضبابي */
+            -webkit-backdrop-filter: blur(8px); /* لدعم أجهزة الآيفون وسفاري */
             z-index: 10;
         }
 
@@ -219,28 +220,28 @@
         }
 
         .swiper-slide {
-            background-color: transparent;
             display: flex;
             justify-content: center;
-            align-items: center;
-            overflow: hidden; /* مهم جداً لاحتواء الصورة عند التكبير */
+            align-items: center; /* تمركز الصورة عمودياً وأفقياً */
+            /* إلغاء التمرير الرأسي */
+            overflow: hidden; 
         }
 
         .swiper-zoom-container {
             width: 100%;
-            height: 100%;
+            height: 100%; /* ملء ارتفاع الحاوية بالكامل */
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: center; /* تمركز محتوى الزووم */
         }
 
         .swiper-slide img {
-            /* التغيير الجوهري هنا: نستخدم auto بدلاً من 100% لضبط أبعاد الزووم */
-            width: auto !important;
-            height: auto !important;
+            /* التغيير الجوهري هنا: نستخدم contain مع أبعاد 100% لإلغاء التمرير */
+            width: 100% !important; 
+            height: 100% !important; 
             max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
+            max-height: 100%; 
+            object-fit: contain; /* احتواء الصورة بالكامل داخل الشاشة بدون تشويه */
             display: block;
             margin: auto; /* لضمان تمركز الصورة دائماً */
             user-select: none;
