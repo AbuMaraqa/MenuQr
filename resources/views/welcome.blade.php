@@ -219,7 +219,7 @@
         }
 
         .swiper-slide {
-            background-color: transparent;
+            background-color: #000;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -242,7 +242,7 @@
             width: 100%;
             height: 100%;
             object-fit: fill;
-            background-color: transparent;
+            background-color: #000;
             user-select: none;
             -webkit-user-drag: none;
             -webkit-backface-visibility: hidden !important;
