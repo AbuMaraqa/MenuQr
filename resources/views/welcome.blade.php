@@ -223,9 +223,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            transform-style: preserve-3d;
+            -webkit-backface-visibility: hidden !important;
+            backface-visibility: hidden !important;
+            transform-style: preserve-3d !important;
         }
 
         .swiper-zoom-container {
@@ -234,6 +234,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            -webkit-backface-visibility: hidden !important;
+            backface-visibility: hidden !important;
+            transform-style: preserve-3d !important;
         }
 
         .swiper-slide img {
@@ -243,8 +246,18 @@
             background-color: transparent;
             user-select: none;
             -webkit-user-drag: none;
-            -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
+            -webkit-backface-visibility: hidden !important;
+            backface-visibility: hidden !important;
+            transform: translateZ(0); 
+        }
+
+        /* إصلاح مشكلة اختفاء الصور عند التقريب في آيفون مع الحفاظ على التقليب */
+        .swiper-slide-zoomed,
+        .swiper-slide-zoomed .swiper-zoom-container,
+        .swiper-slide-zoomed img {
+            -webkit-backface-visibility: visible !important;
+            backface-visibility: visible !important;
+            transform-style: flat !important;
         }
 
         .swipe-hint {
