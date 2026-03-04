@@ -399,7 +399,7 @@
         const isIOS = (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
 
         const swiperConfig = {
-            effect: isIOS ? 'creative' : 'flip',
+            effect: 'flip',
             grabCursor: true,
             loop: false,
             speed: 800,
