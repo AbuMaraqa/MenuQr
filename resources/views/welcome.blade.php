@@ -36,7 +36,7 @@
 
         .app-container {
             width: 100%;
-            max-width: 450px;
+            max-width: 100%; /* تم التعديل هنا لملء الشاشة */
             height: 100%;
             position: relative;
             display: flex;
@@ -225,28 +225,26 @@
             background-color: transparent;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* تغيير مهم: يبدأ عرض المنيو من أعلى الشاشة وليس المنتصف */
-            overflow-y: auto; /* السماح بالتمرير لأسفل (Scroll) لرؤية باقي المنيو */
-            -webkit-overflow-scrolling: touch; /* تمرير ناعم جداً للآيفون */
+            align-items: center; /* تم التعديل للمنتصف */
+            overflow: hidden; /* تم التعديل لمنع السكرول نهائياً */
         }
 
         .swiper-zoom-container {
             width: 100%;
-            height: auto;
-            min-height: 100%;
+            height: 100%; /* تم التعديل ليكون 100% بدلاً من auto */
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* يبدأ من الأعلى */
+            align-items: center; /* تم التعديل للمنتصف */
         }
 
         .swiper-slide img {
-            width: 100% !important; /* إجبار الصورة على ملء عرض الشاشة بالكامل لإخفاء الهوامش */
-            height: auto !important; /* ترك الطول يتحدد تلقائياً بناءً على العرض */
+            width: 100% !important; 
+            height: 100% !important; /* تم التعديل لاحتواء الصورة في الشاشة */
             max-width: 100%;
-            max-height: none; /* إزالة الحد الأقصى للطول حتى لا تنكمش الصورة */
-            object-fit: contain;
+            max-height: 100%; /* تم التعديل لمنع التمدد خارج الشاشة */
+            object-fit: contain; /* يحافظ على أبعاد الصورة بدون قص أو سكرول */
             display: block;
-            margin: 0 auto;
+            margin: auto;
             user-select: none;
             -webkit-user-drag: none;
             transition: transform 0.3s ease;
