@@ -139,17 +139,13 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             height: 100dvh;
             display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding-top: env(safe-area-inset-top, 0);
-            padding-right: env(safe-area-inset-right, 0);
-            padding-bottom: env(safe-area-inset-bottom, 0);
-            padding-left: env(safe-area-inset-left, 0);
             background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
@@ -190,41 +186,40 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.4);
-            color: #f59e0b;
-            border: 1px solid rgba(245, 158, 11, 0.4);
+            background: rgba(30, 30, 30, 0.4);
+            color: rgba(255, 255, 255, 0.8);
+            border: none;
             border-radius: 50%;
-            width: 48px;
-            height: 48px;
+            width: 38px;
+            height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             z-index: 10000;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         .nav-arrow:hover, .nav-arrow:active {
-            background: #f59e0b;
-            color: #000;
+            background: rgba(245, 158, 11, 0.5);
+            color: #fff;
             transform: translateY(-50%) scale(1.05);
         }
 
         .nav-arrow svg {
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             transition: transform 0.3s;
         }
 
         .right-arrow {
-            right: calc(15px + env(safe-area-inset-right, 0));
+            right: calc(10px + env(safe-area-inset-right, 0));
         }
 
         .left-arrow {
-            left: calc(15px + env(safe-area-inset-left, 0));
+            left: calc(10px + env(safe-area-inset-left, 0));
         }
 
         .swiper {
