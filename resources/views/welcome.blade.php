@@ -244,25 +244,19 @@
            SWIPER FULLSCREEN + NO BLACK SIDES
            (blur background trick)
            ========================= */
-        .swiper,
-        .swiper-wrapper,
-        .swiper-slide {
-            width: 100vw !important;
-            height: 100dvh !important;
-        }
+        .swiper, .swiper-wrapper, .swiper-slide {
+    width: 100vw !important;
+    height: 100dvh !important;
+}
 
         .swiper {
             display: block;
         }
 
         .swiper-slide {
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #000; /* fallback */
-        }
+    overflow: hidden !important;
+    background: transparent !important;
+}
 
         /* background = same image cover + blur */
         .swiper-slide::before {
@@ -286,27 +280,17 @@
         }
 
         .swiper-zoom-container {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    width: 100% !important;
+    height: 100% !important;
+}
 
         .swiper-slide img {
-            width: 100% !important;
-            height: 100% !important;
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain !important; /* الصورة كاملة بدون قص */
-            display: block;
-            margin: auto;
-            user-select: none;
-            -webkit-user-drag: none;
-            transition: transform 0.3s ease;
-        }
+    width: 100vw !important;
+    height: 100dvh !important;
+    object-fit: fill !important;   /* المهم */
+    display: block !important;
+    margin: 0 !important;
+}
 
         .swipe-hint {
             position: absolute;
