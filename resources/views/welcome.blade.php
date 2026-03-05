@@ -292,6 +292,27 @@
     margin: 0 !important;
 }
 
+.swiper,
+.swiper-wrapper,
+.swiper-slide,
+.swiper-zoom-container,
+.swiper-slide img {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+.swiper {
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
+}
+
+/* اختياري: يساعد ببعض الأجهزة */
+.swiper-slide img {
+  image-rendering: auto;
+}
+
         .swipe-hint {
             position: absolute;
             bottom: calc(32px + env(safe-area-inset-bottom, 0));
