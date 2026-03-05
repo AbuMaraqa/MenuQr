@@ -14,6 +14,17 @@
         * {
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100vw;
+            max-width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
         }
 
         body {
@@ -22,26 +33,21 @@
             @else
             background: linear-gradient(135deg, #000000 0%, #000000 100%);
             @endif
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            width: 100vw;
             height: 100vh;
+            height: 100dvh;
             overflow: hidden;
-            /* تم إزالة touch-action: none; لأنها تعطل زووم الآيفون */
             font-family: 'Tajawal', sans-serif;
             color: #fff;
+            display: block;
         }
 
         .app-container {
-            width: 100%;
-            max-width: 100%; /* تم التعديل هنا لملء الشاشة */
+            width: 100vw;
+            max-width: 100vw;
             height: 100%;
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: block;
         }
 
         #categories-section {
@@ -139,13 +145,15 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             height: 100dvh;
             display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            margin: 0;
+            padding: 0;
             background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
@@ -186,31 +194,31 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(30, 30, 30, 0.4);
-            color: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
             border: none;
             border-radius: 50%;
-            width: 38px;
-            height: 38px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             z-index: 10000;
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
             transition: all 0.3s ease;
         }
 
         .nav-arrow:hover, .nav-arrow:active {
-            background: rgba(245, 158, 11, 0.5);
-            color: #fff;
+            background: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.9);
             transform: translateY(-50%) scale(1.05);
         }
 
         .nav-arrow svg {
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             transition: transform 0.3s;
         }
 
