@@ -142,10 +142,22 @@
         }
 
         #book-section {
-            position: fixed;
+            width: 100%;
+            height: auto;
+            position: absolute;
             top: 0;
             left: 0;
-            width: 100vw;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            /* التعديلات هنا */
+            background: rgba(0, 0, 0, 0.4); /* خلفية شبه شفافة بدلاً من الأسود القاتم */
+            backdrop-filter: blur(8px); /* تأثير ضبابي احترافي */
+            -webkit-backdrop-filter: blur(8px); /* لدعم أجهزة الآيفون وسفاري */
+            z-index: 10;
+            width: 100%;
             height: 100vh;
             height: 100dvh;
             display: none;
