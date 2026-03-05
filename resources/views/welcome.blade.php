@@ -166,9 +166,9 @@
             justify-content: center;
             margin: 0;
             padding: 0;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background: rgba(0, 0, 0, 0.35); 
+            backdrop-filter: blur(14px) saturate(120%); 
+            -webkit-backdrop-filter: blur(14px) saturate(120%);
             z-index: 9999;
             overflow: hidden;
             box-sizing: border-box;
