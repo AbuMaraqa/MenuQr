@@ -19,8 +19,7 @@
         }
 
         html, body {
-            width: 100vw;
-            max-width: 100%;
+            width: 100%;
             height: 100%;
             margin: 0;
             padding: 0;
@@ -31,8 +30,9 @@
             @if(isset($setting) && $setting->getFirstMediaUrl('background'))
             background: url("{{ $setting->getFirstMediaUrl('background') }}") center center / cover no-repeat fixed;
             @else
-            background: linear-gradient(135deg, #000000 0%, #000000 100%);
+            background: #000;
             @endif
+
             width: 100vw;
             height: 100vh;
             height: 100dvh;
@@ -67,10 +67,10 @@
             width: 6px;
         }
         #categories-section::-webkit-scrollbar-track {
-            background: #222; 
+            background: #222;
         }
         #categories-section::-webkit-scrollbar-thumb {
-            background-color: #f59e0b; 
+            background-color: #f59e0b;
             border-radius: 10px;
         }
 
@@ -141,48 +141,42 @@
             box-shadow: 0 0 25px rgba(245, 158, 11, 0.8);
         }
 
+        /* =========================
+           BOOK SECTION (FULLSCREEN)
+           ========================= */
         #book-section {
-            width: 100%;
             position: absolute;
-            top: 0;
-            left: 0;
+            inset: 0;
             display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 0;
-            /* التعديلات هنا */
-            background: rgba(0, 0, 0, 0.4); /* خلفية شبه شفافة بدلاً من الأسود القاتم */
-            backdrop-filter: blur(8px); /* تأثير ضبابي احترافي */
-            -webkit-backdrop-filter: blur(8px); /* لدعم أجهزة الآيفون وسفاري */
-            z-index: 10;
-            width: 100%;
+
+            width: 100vw;
             height: 100vh;
             height: 100dvh;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+
             margin: 0;
             padding: 0;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+
             z-index: 9999;
             overflow: hidden;
-            box-sizing: border-box;
         }
 
         .back-btn {
             position: absolute;
-            top: calc(20px + env(safe-area-inset-top, 0));
-            right: calc(20px + env(safe-area-inset-right, 0));
-            background: rgba(30,30,30, 0.8);
+            top: calc(14px + env(safe-area-inset-top, 0));
+            right: calc(14px + env(safe-area-inset-right, 0));
+            background: rgba(30,30,30, 0.55);
             color: #f59e0b;
-            border: 1px solid #f59e0b;
+            border: 1px solid rgba(245,158,11,0.7);
             border-radius: 25px;
-            padding: 10px 20px;
-            font-size: 1rem;
+            padding: 9px 16px;
+            font-size: 0.95rem;
             font-family: inherit;
             font-weight: bold;
             cursor: pointer;
@@ -192,8 +186,8 @@
             gap: 6px;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
         }
 
         .back-btn:hover, .back-btn:active {
@@ -201,36 +195,41 @@
             color: #000;
         }
 
+        /* =========================
+           SMALL TRANSPARENT ARROWS
+           ========================= */
         .nav-arrow {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.6);
-            border: none;
+            width: 26px;
+            height: 26px;
+            background: rgba(255, 255, 255, 0.10);
+            color: rgba(255, 255, 255, 0.55);
+            border: 1px solid rgba(255,255,255,0.12);
             border-radius: 50%;
-            width: 32px;
-            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             z-index: 10000;
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(3px);
-            transition: all 0.3s ease;
-        }
-
-        .nav-arrow:hover, .nav-arrow:active {
-            background: rgba(255, 255, 255, 0.2);
-            color: rgba(255, 255, 255, 0.9);
-            transform: translateY(-50%) scale(1.05);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            opacity: 0.35;
+            transition: 0.25s ease;
         }
 
         .nav-arrow svg {
-            width: 16px;
-            height: 16px;
-            transition: transform 0.3s;
+            width: 12px;
+            height: 12px;
+        }
+
+        .nav-arrow:hover,
+        .nav-arrow:active {
+            opacity: 0.75;
+            background: rgba(255, 255, 255, 0.18);
+            color: rgba(255, 255, 255, 0.95);
+            transform: translateY(-50%) scale(1.03);
         }
 
         .right-arrow {
@@ -241,33 +240,67 @@
             left: calc(10px + env(safe-area-inset-left, 0));
         }
 
+        /* =========================
+           SWIPER FULLSCREEN + NO BLACK SIDES
+           (blur background trick)
+           ========================= */
+        .swiper,
+        .swiper-wrapper,
+        .swiper-slide {
+            width: 100vw !important;
+            height: 100dvh !important;
+        }
+
         .swiper {
-            width: 100%;
-            height: 100%;
+            display: block;
         }
 
         .swiper-slide {
-            background-color: transparent;
+            position: relative;
+            overflow: hidden;
             display: flex;
             justify-content: center;
-            align-items: center; /* تم التعديل للمنتصف */
-            overflow: hidden; /* تم التعديل لمنع السكرول نهائياً */
+            align-items: center;
+            background: #000; /* fallback */
+        }
+
+        /* background = same image cover + blur */
+        .swiper-slide::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: var(--bg);
+            background-size: cover;
+            background-position: center;
+            filter: blur(18px);
+            transform: scale(1.15);
+            opacity: 0.55;
+        }
+
+        /* dark overlay for contrast */
+        .swiper-slide::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.25);
         }
 
         .swiper-zoom-container {
+            position: relative;
+            z-index: 2;
             width: 100%;
-            height: 100%; /* تم التعديل ليكون 100% بدلاً من auto */
+            height: 100%;
             display: flex;
             justify-content: center;
-            align-items: center; /* تم التعديل للمنتصف */
+            align-items: center;
         }
 
         .swiper-slide img {
-            width: 100% !important; 
-            height: 100% !important; /* تم التعديل لاحتواء الصورة في الشاشة */
+            width: 100% !important;
+            height: 100% !important;
             max-width: 100%;
-            max-height: 100%; /* تم التعديل لمنع التمدد خارج الشاشة */
-            object-fit: contain; /* يحافظ على أبعاد الصورة بدون قص أو سكرول */
+            max-height: 100%;
+            object-fit: contain !important; /* الصورة كاملة بدون قص */
             display: block;
             margin: auto;
             user-select: none;
@@ -277,14 +310,14 @@
 
         .swipe-hint {
             position: absolute;
-            bottom: calc(40px + env(safe-area-inset-bottom, 0));
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px 20px;
+            bottom: calc(32px + env(safe-area-inset-bottom, 0));
+            background: rgba(0, 0, 0, 0.45);
+            padding: 10px 18px;
             border-radius: 30px;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             color: rgba(255, 255, 255, 0.9);
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 500;
             display: flex;
             align-items: center;
@@ -348,13 +381,14 @@
         </div>
 
         <div class="swiper" id="swiper-container-wrapper" style="display: none;" dir="ltr">
-            <div class="swiper-wrapper" id="swiper-wrapper">
-            </div>
+            <div class="swiper-wrapper" id="swiper-wrapper"></div>
         </div>
 
         <div class="swipe-hint" id="hint">
             <span>اسحب للتقليب</span>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 18l-6-6 6-6"/>
+            </svg>
         </div>
     </div>
 
@@ -376,14 +410,14 @@
 
     function openCategory(categoryId) {
         const pages = categoryData[categoryId];
-        
+
         const categoriesSection = document.getElementById('categories-section');
         const bookSection = document.getElementById('book-section');
         const swiperContainer = document.getElementById('swiper-container-wrapper');
         const swiperWrapper = document.getElementById('swiper-wrapper');
         const noPagesMsg = document.getElementById('no-pages-msg');
         const hint = document.getElementById('hint');
-        
+
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
 
@@ -392,7 +426,7 @@
         hint.style.display = 'flex';
         hint.style.opacity = '1';
 
-        if(swiperInstance) {
+        if (swiperInstance) {
             swiperInstance.destroy(true, true);
             swiperInstance = null;
         }
@@ -416,13 +450,16 @@
         pages.forEach(url => {
             const slideDiv = document.createElement('div');
             slideDiv.className = 'swiper-slide';
-            
+
+            // ✅ مهم: نمرّر الصورة كخلفية blur للسلايد (تزيل الحواف السوداء)
+            slideDiv.style.setProperty('--bg', `url("${url}")`);
+
             const zoomContainer = document.createElement('div');
             zoomContainer.className = 'swiper-zoom-container';
-            
+
             const img = document.createElement('img');
             img.src = url;
-            
+
             zoomContainer.appendChild(img);
             slideDiv.appendChild(zoomContainer);
             swiperWrapper.appendChild(slideDiv);
@@ -436,19 +473,19 @@
             loop: false,
             speed: 800,
             zoom: {
-                maxRatio: 3, // أقصى حد للتكبير
-                minRatio: 1, // الحد الأدنى (الوضع الطبيعي)
-                toggle: true, // تفعيل التكبير/التصغير بالنقر المزدوج (ممتاز للآيفون)
+                maxRatio: 3,
+                minRatio: 1,
+                toggle: true,
             },
             on: {
                 slideChange: function () {
                     const flipSound = document.getElementById('flip-sound');
-                    if(flipSound) {
+                    if (flipSound) {
                         flipSound.currentTime = 0;
-                        flipSound.play().catch(error => console.log('المتصفح منع الصوت:', error));
+                        flipSound.play().catch(() => {});
                     }
 
-                    if(hint && hint.style.display !== 'none') {
+                    if (hint && hint.style.display !== 'none') {
                         hint.style.transition = 'opacity 0.5s';
                         hint.style.opacity = '0';
                         setTimeout(() => hint.style.display = 'none', 500);
@@ -458,7 +495,6 @@
         };
 
         if (isIOS) {
-            // تأثير بديل رائع يشبه تقليب الصفحات يعمل بشكل مثالي مع الـ Zoom في غوغل و سفاري
             swiperConfig.creativeEffect = {
                 prev: {
                     shadow: true,
@@ -469,7 +505,6 @@
                 },
             };
         } else {
-            // تأثير القلب الافتراضي للأجهزة الأخرى
             swiperConfig.flipEffect = {
                 slideShadows: false,
             };
@@ -484,15 +519,11 @@
     }
 
     function flipToNext() {
-        if (swiperInstance) {
-            swiperInstance.slideNext();
-        }
+        if (swiperInstance) swiperInstance.slideNext();
     }
 
     function flipToPrev() {
-        if (swiperInstance) {
-            swiperInstance.slidePrev();
-        }
+        if (swiperInstance) swiperInstance.slidePrev();
     }
 </script>
 </body>
