@@ -136,42 +136,49 @@
         }
 
         #book-section {
-            width: 100%;
-            height: auto;
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
             display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 0;
-            /* التعديلات هنا */
-            background: rgba(0, 0, 0, 0.4); /* خلفية شبه شفافة بدلاً من الأسود القاتم */
-            backdrop-filter: blur(8px); /* تأثير ضبابي احترافي */
-            -webkit-backdrop-filter: blur(8px); /* لدعم أجهزة الآيفون وسفاري */
-            z-index: 10;
+            padding-top: env(safe-area-inset-top, 0);
+            padding-right: env(safe-area-inset-right, 0);
+            padding-bottom: env(safe-area-inset-bottom, 0);
+            padding-left: env(safe-area-inset-left, 0);
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 9999;
+            overflow: hidden;
+            box-sizing: border-box;
         }
 
         .back-btn {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: calc(20px + env(safe-area-inset-top, 0));
+            right: calc(20px + env(safe-area-inset-right, 0));
             background: rgba(30,30,30, 0.8);
             color: #f59e0b;
             border: 1px solid #f59e0b;
-            border-radius: 20px;
-            padding: 8px 16px;
+            border-radius: 25px;
+            padding: 10px 20px;
             font-size: 1rem;
             font-family: inherit;
             font-weight: bold;
             cursor: pointer;
-            z-index: 100;
+            z-index: 10000;
             display: flex;
             align-items: center;
-            gap: 5px;
-            backdrop-filter: blur(5px);
-            transition: all 0.2s ease;
+            gap: 6px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .back-btn:hover, .back-btn:active {
@@ -183,37 +190,41 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: transparent;
-            color: rgba(245, 158, 11, 0.6);
-            border: none;
-            width: 30px;
-            height: 30px;
+            background: rgba(0, 0, 0, 0.4);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            z-index: 100;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-            transition: all 0.2s ease;
+            z-index: 10000;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         .nav-arrow:hover, .nav-arrow:active {
-            background: transparent;
-            color: rgba(245, 158, 11, 1);
-            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.8));
+            background: #f59e0b;
+            color: #000;
+            transform: translateY(-50%) scale(1.05);
         }
 
         .nav-arrow svg {
-            width: 18px;
-            height: 18px;
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s;
         }
 
         .right-arrow {
-            right: 8px;
+            right: calc(15px + env(safe-area-inset-right, 0));
         }
 
         .left-arrow {
-            left: 8px;
+            left: calc(15px + env(safe-area-inset-left, 0));
         }
 
         .swiper {
@@ -252,15 +263,22 @@
 
         .swipe-hint {
             position: absolute;
-            bottom: 30px;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
+            bottom: calc(40px + env(safe-area-inset-bottom, 0));
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             pointer-events: none;
             animation: slideLeft 2s infinite ease-in-out;
-            z-index: 10;
+            z-index: 10000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         @keyframes slideLeft {
