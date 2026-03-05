@@ -18,14 +18,6 @@
             padding: 0;
         }
 
-        :root {
-            --vvh: 100dvh; /* fallback */
-            --safe-top: env(safe-area-inset-top, 0px);
-            --safe-bottom: env(safe-area-inset-bottom, 0px);
-            --safe-left: env(safe-area-inset-left, 0px);
-            --safe-right: env(safe-area-inset-right, 0px);
-        }
-
         html, body {
             width: 100%;
             height: 100%;
@@ -42,7 +34,8 @@
             @endif
 
             width: 100vw;
-            height: var(--vvh);
+            height: 100vh;
+            height: 100dvh;
             overflow: hidden;
             font-family: 'Tajawal', sans-serif;
             color: #fff;
@@ -70,8 +63,12 @@
             scrollbar-color: #f59e0b #222;
         }
 
-        #categories-section::-webkit-scrollbar { width: 6px; }
-        #categories-section::-webkit-scrollbar-track { background: #222; }
+        #categories-section::-webkit-scrollbar {
+            width: 6px;
+        }
+        #categories-section::-webkit-scrollbar-track {
+            background: #222;
+        }
         #categories-section::-webkit-scrollbar-thumb {
             background-color: #f59e0b;
             border-radius: 10px;
@@ -101,7 +98,9 @@
             height: 100%;
         }
 
-        .category-card:active { transform: scale(0.95); }
+        .category-card:active {
+            transform: scale(0.95);
+        }
 
         .category-img {
             width: 100%;
@@ -111,7 +110,32 @@
             display: block;
         }
 
-        .category-card:hover .category-img { transform: scale(1.05); }
+        .category-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            pointer-events: none;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 12px;
+        }
+
+        .category-title {
+            color: #f59e0b;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            margin: 0;
+            padding: 0 5px;
+        }
+
+        .category-card:hover .category-img {
+            transform: scale(1.05);
+        }
+
         .category-card:hover {
             border-color: rgba(245, 158, 11, 0.8);
             box-shadow: 0 0 25px rgba(245, 158, 11, 0.8);
@@ -123,18 +147,17 @@
         #book-section {
             position: absolute;
             inset: 0;
-            width: 100vw;
-            height: var(--vvh);
             display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+
             margin: 0;
             padding: 0;
-
-            /* ✅ safe area */
-            padding-top: var(--safe-top);
-            padding-bottom: var(--safe-bottom);
 
             background: rgba(0, 0, 0, 0.92);
             backdrop-filter: blur(12px);
@@ -146,14 +169,14 @@
 
         .back-btn {
             position: absolute;
-            top: calc(14px + var(--safe-top));
-            right: calc(14px + var(--safe-right));
-            background: rgba(30,30,30, 0.8);
+            top: calc(14px + env(safe-area-inset-top, 0));
+            right: calc(14px + env(safe-area-inset-right, 0));
+            background: rgba(30,30,30, 0.55);
             color: #f59e0b;
-            border: 1px solid #f59e0b;
+            border: 1px solid rgba(245,158,11,0.7);
             border-radius: 25px;
-            padding: 10px 20px;
-            font-size: 1rem;
+            padding: 9px 16px;
+            font-size: 0.95rem;
             font-family: inherit;
             font-weight: bold;
             cursor: pointer;
@@ -163,8 +186,8 @@
             gap: 6px;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
         }
 
         .back-btn:hover, .back-btn:active {
@@ -179,12 +202,12 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
+            width: 26px;
+            height: 26px;
             background: rgba(255, 255, 255, 0.10);
             color: rgba(255, 255, 255, 0.55);
             border: 1px solid rgba(255,255,255,0.12);
             border-radius: 50%;
-            width: 26px;
-            height: 26px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -193,72 +216,105 @@
             backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
             opacity: 0.35;
-            transition: all 0.25s ease;
+            transition: 0.25s ease;
         }
 
-        .nav-arrow svg { width: 12px; height: 12px; }
+        .nav-arrow svg {
+            width: 12px;
+            height: 12px;
+        }
 
-        .nav-arrow:hover, .nav-arrow:active {
+        .nav-arrow:hover,
+        .nav-arrow:active {
             opacity: 0.75;
             background: rgba(255, 255, 255, 0.18);
             color: rgba(255, 255, 255, 0.95);
             transform: translateY(-50%) scale(1.03);
         }
 
-        .right-arrow { right: calc(10px + var(--safe-right)); }
-        .left-arrow  { left:  calc(10px + var(--safe-left)); }
+        .right-arrow {
+            right: calc(10px + env(safe-area-inset-right, 0));
+        }
+
+        .left-arrow {
+            left: calc(10px + env(safe-area-inset-left, 0));
+        }
 
         /* =========================
-           SWIPER FULLSCREEN (VVH)
+           SWIPER FULLSCREEN + NO BLACK SIDES
+           (blur background trick)
            ========================= */
+        .swiper, .swiper-wrapper, .swiper-slide {
+    width: 100vw !important;
+    height: 100dvh !important;
+}
+
         .swiper {
-            width: 100%;
-            height: calc(var(--vvh) - var(--safe-top) - var(--safe-bottom)) !important;
-        }
-
-        .swiper-wrapper,
-        .swiper-slide {
-            width: 100%;
-            height: 100% !important;
+            display: block;
         }
 
         .swiper-slide {
-            background-color: transparent;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden; /* يمنع أي نزول تحت */
+    overflow: hidden !important;
+    background: transparent !important;
+}
+
+        /* background = same image cover + blur */
+        .swiper-slide::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: var(--bg);
+            background-size: cover;
+            background-position: center;
+            filter: blur(18px);
+            transform: scale(1.15);
+            opacity: 0.55;
+        }
+
+        /* dark overlay for contrast */
+        .swiper-slide::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.25);
         }
 
         .swiper-zoom-container {
-            width: 100% !important;
-            height: 100% !important;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    width: 100% !important;
+    height: 100% !important;
+}
 
-        /* ✅ الصورة تملأ الشاشة (بدون فراغات) */
         .swiper-slide img {
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: fill !important;   /* يزيل الفراغات (مع تمدد بسيط حسب أبعاد الشاشة) */
-            display: block !important;
-            margin: 0 !important;
-            user-select: none;
-            -webkit-user-drag: none;
-        }
+    width: 100vw !important;
+    height: 100dvh !important;
+    object-fit: fill !important;   /* المهم */
+    display: block !important;
+    margin: 0 !important;
+}
+
+.swiper,
+.swiper-wrapper,
+.swiper-slide,
+.swiper-zoom-container,
+.swiper-slide img {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+
 
         .swipe-hint {
             position: absolute;
-            bottom: calc(32px + var(--safe-bottom));
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px 20px;
+            bottom: calc(32px + env(safe-area-inset-bottom, 0));
+            background: rgba(0, 0, 0, 0.45);
+            padding: 10px 18px;
             border-radius: 30px;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             color: rgba(255, 255, 255, 0.9);
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 500;
             display: flex;
             align-items: center;
@@ -337,15 +393,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-    // ✅ fix iPhone viewport height (prevents bottom cut)
-    function setVVH(){
-        const h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-        document.documentElement.style.setProperty('--vvh', `${h}px`);
-    }
-    setVVH();
-    window.addEventListener('resize', setVVH);
-    if (window.visualViewport) window.visualViewport.addEventListener('resize', setVVH);
-
     const categoryData = {
         @foreach($categories as $category)
             {{ $category->id }}: [
@@ -401,6 +448,9 @@
             const slideDiv = document.createElement('div');
             slideDiv.className = 'swiper-slide';
 
+            // ✅ مهم: نمرّر الصورة كخلفية blur للسلايد (تزيل الحواف السوداء)
+            slideDiv.style.setProperty('--bg', `url("${url}")`);
+
             const zoomContainer = document.createElement('div');
             zoomContainer.className = 'swiper-zoom-container';
 
@@ -443,11 +493,18 @@
 
         if (isIOS) {
             swiperConfig.creativeEffect = {
-                prev: { shadow: true, translate: ['-20%', 0, -1] },
-                next: { translate: ['100%', 0, 0] },
+                prev: {
+                    shadow: true,
+                    translate: ['-20%', 0, -1],
+                },
+                next: {
+                    translate: ['100%', 0, 0],
+                },
             };
         } else {
-            swiperConfig.flipEffect = { slideShadows: false };
+            swiperConfig.flipEffect = {
+                slideShadows: false,
+            };
         }
 
         swiperInstance = new Swiper('.swiper', swiperConfig);
