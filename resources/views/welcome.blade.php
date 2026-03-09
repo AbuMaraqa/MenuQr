@@ -360,6 +360,15 @@
             .hint-text-desktop {
                 display: inline;
             }
+            
+            /* أخذ الحجم الكامل للشاشة لضمان احتواء الصورة بالكامل وتجنب القص */
+            .swiper {
+                height: 100%;
+            }
+            .swiper-slide img {
+                height: 100% !important;
+                object-fit: contain !important;
+            }
         }
 
         @media (min-width: 1024px) {
