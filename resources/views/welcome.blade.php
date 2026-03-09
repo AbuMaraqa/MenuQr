@@ -54,17 +54,19 @@
             width: 100%;
             height: 100%;
             overflow-y: auto;
+            overflow-x: hidden;
             padding: 20px 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             scrollbar-width: thin;
             scrollbar-color: #f59e0b #222;
+            -webkit-overflow-scrolling: touch;
         }
 
         #categories-section::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
         }
         #categories-section::-webkit-scrollbar-track {
             background: #222; 
@@ -79,6 +81,8 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 15px;
             width: 100%;
+            max-width: 1200px;
+            margin: auto;
             padding: 10px;
             padding-bottom: 50px;
             align-items: stretch;
@@ -95,7 +99,8 @@
             border: 1px solid rgba(245, 158, 11, 0.2);
             display: flex;
             flex-direction: column;
-            height: 100%;
+            aspect-ratio: 1 / 1;
+            height: auto;
         }
 
         .category-card:active {
@@ -305,7 +310,73 @@
             color: #ccc;
             font-size: 1.2rem;
             text-align: center;
-            margin-top: 50%;
+            margin: auto;
+        }
+
+        /* التصميم المتجاوب للكمبيوتر والآيباد */
+        @media (min-width: 576px) {
+            .categories-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+            #categories-section {
+                padding: 40px 20px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .categories-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 25px;
+            }
+            .nav-arrow {
+                width: 50px;
+                height: 50px;
+                background: rgba(255, 255, 255, 0.15);
+            }
+            .nav-arrow svg {
+                width: 28px;
+                height: 28px;
+            }
+            .right-arrow {
+                right: 40px;
+            }
+            .left-arrow {
+                left: 40px;
+            }
+            .back-btn {
+                top: 40px;
+                right: 40px;
+                font-size: 1.2rem;
+                padding: 12px 25px;
+            }
+            .nav-arrow:hover, .nav-arrow:active {
+                background: rgba(255, 255, 255, 0.3);
+                transform: translateY(-50%) scale(1.1);
+            }
+            .hint-text-mobile {
+                display: none;
+            }
+            .hint-text-desktop {
+                display: inline;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .categories-grid {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 30px;
+            }
+            .back-btn:hover {
+                transform: scale(1.05);
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .categories-grid {
+                grid-template-columns: repeat(6, 1fr);
+                max-width: 1400px;
+            }
         }
     </style>
 </head>
@@ -353,7 +424,8 @@
         </div>
 
         <div class="swipe-hint" id="hint">
-            <span>اسحب للتقليب</span>
+            <span class="hint-text-mobile">اسحب للتقليب</span>
+            <span class="hint-text-desktop" style="display: none;">التقليب بالسحب أو الأسهم</span>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
         </div>
     </div>
@@ -439,6 +511,10 @@
                 maxRatio: 3, // أقصى حد للتكبير
                 minRatio: 1, // الحد الأدنى (الوضع الطبيعي)
                 toggle: true, // تفعيل التكبير/التصغير بالنقر المزدوج (ممتاز للآيفون)
+            },
+            keyboard: {
+                enabled: true, // تفعيل التنقل بلوحة المفاتيح للكمبيوتر
+                onlyInViewport: false,
             },
             on: {
                 slideChange: function () {
