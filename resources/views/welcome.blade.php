@@ -182,10 +182,10 @@
         .back-btn {
             position: absolute;
             top: calc(20px + env(safe-area-inset-top, 0));
-            right: calc(20px + env(safe-area-inset-right, 0));
-            background: rgba(30,30,30, 0.8);
+            left: calc(20px + env(safe-area-inset-left, 0));
+            background: transparent;
             color: #f59e0b;
-            border: 1px solid #f59e0b;
+            border: none;
             border-radius: 25px;
             padding: 10px 20px;
             font-size: 1rem;
@@ -196,15 +196,11 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .back-btn:hover, .back-btn:active {
-            background: #f59e0b;
-            color: #000;
+            color: #fff;
         }
 
         .nav-arrow {
@@ -280,30 +276,6 @@
             transition: transform 0.3s ease;
         }
 
-        .swipe-hint {
-            position: absolute;
-            bottom: calc(40px + env(safe-area-inset-bottom, 0));
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            pointer-events: none;
-            animation: slideLeft 2s infinite ease-in-out;
-            z-index: 10000;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        @keyframes slideLeft {
-            0%, 100% { transform: translateX(0); opacity: 0.5; }
-            50% { transform: translateX(-15px); opacity: 1; }
-        }
 
         .no-pages-msg {
             display: none;
@@ -346,7 +318,7 @@
             }
             .back-btn {
                 top: 40px;
-                right: 40px;
+                left: 40px;
                 font-size: 1.2rem;
                 padding: 12px 25px;
             }
@@ -354,13 +326,6 @@
                 background: rgba(255, 255, 255, 0.3);
                 transform: translateY(-50%) scale(1.1);
             }
-            .hint-text-mobile {
-                display: none;
-            }
-            .hint-text-desktop {
-                display: inline;
-            }
-            
             /* أخذ الحجم الكامل للشاشة لضمان احتواء الصورة بالكامل وتجنب القص */
             .swiper {
                 height: 100%;
@@ -431,12 +396,6 @@
             <div class="swiper-wrapper" id="swiper-wrapper">
             </div>
         </div>
-
-        <div class="swipe-hint" id="hint">
-            <span class="hint-text-mobile">اسحب للتقليب</span>
-            <span class="hint-text-desktop" style="display: none;">التقليب بالسحب أو الأسهم</span>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-        </div>
     </div>
 
 </div>
@@ -463,15 +422,12 @@
         const swiperContainer = document.getElementById('swiper-container-wrapper');
         const swiperWrapper = document.getElementById('swiper-wrapper');
         const noPagesMsg = document.getElementById('no-pages-msg');
-        const hint = document.getElementById('hint');
         
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
 
         categoriesSection.style.display = 'none';
         bookSection.style.display = 'flex';
-        hint.style.display = 'flex';
-        hint.style.opacity = '1';
 
         if(swiperInstance) {
             swiperInstance.destroy(true, true);
@@ -482,7 +438,6 @@
 
         if (!pages || pages.length === 0) {
             swiperContainer.style.display = 'none';
-            hint.style.display = 'none';
             prevBtn.style.display = 'none';
             nextBtn.style.display = 'none';
             noPagesMsg.style.display = 'block';
@@ -531,12 +486,6 @@
                     if(flipSound) {
                         flipSound.currentTime = 0;
                         flipSound.play().catch(error => console.log('المتصفح منع الصوت:', error));
-                    }
-
-                    if(hint && hint.style.display !== 'none') {
-                        hint.style.transition = 'opacity 0.5s';
-                        hint.style.opacity = '0';
-                        setTimeout(() => hint.style.display = 'none', 500);
                     }
                 }
             }
