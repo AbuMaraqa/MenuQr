@@ -266,9 +266,9 @@
         .swiper-slide img {
             width: 100% !important; 
             height: 100% !important; /* تم التعديل لاحتواء الصورة في الشاشة */
-            max-width: 100%;
-            max-height: 100%; /* تم التعديل لمنع التمدد خارج الشاشة */
-            object-fit: contain; /* يحافظ على أبعاد الصورة بدون قص أو سكرول */
+            max-width: 100vw;
+            max-height: 100dvh; /* تم التعديل لمنع التمدد خارج الشاشة */
+            object-fit: fill; /* تم التعديل لتعبئة الشاشة بالكامل بدون حواف */
             display: block;
             margin: auto;
             user-select: none;
