@@ -184,11 +184,12 @@
             top: calc(20px + env(safe-area-inset-top, 0));
             left: calc(20px + env(safe-area-inset-left, 0));
             background: transparent;
-            color: #f59e0b;
+            color: #ffffff;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9), 0 0 8px rgba(0, 0, 0, 0.7);
             border: none;
             border-radius: 25px;
             padding: 10px 20px;
-            font-size: 1rem;
+            font-size: 0.85rem;
             font-family: inherit;
             font-weight: bold;
             cursor: pointer;
@@ -199,8 +200,12 @@
             transition: all 0.3s ease;
         }
 
+        .back-btn svg {
+            filter: drop-shadow(0 1px 4px rgba(0,0,0,0.9)) drop-shadow(0 0 8px rgba(0,0,0,0.7));
+        }
+
         .back-btn:hover, .back-btn:active {
-            color: #fff;
+            color: #f59e0b;
         }
 
         .nav-arrow {
@@ -319,7 +324,7 @@
             .back-btn {
                 top: 40px;
                 left: 40px;
-                font-size: 1.2rem;
+                font-size: 1rem;
                 padding: 12px 25px;
             }
             .nav-arrow:hover, .nav-arrow:active {
