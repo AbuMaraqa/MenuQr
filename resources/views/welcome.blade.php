@@ -254,28 +254,28 @@
 
         .swiper-slide {
             background-color: transparent;
-            display: flex;
-            justify-content: center;
-            align-items: center; /* تم التعديل للمنتصف */
-            overflow: hidden; /* تم التعديل لمنع السكرول نهائياً */
+            display: block;
+            overflow-y: auto; /* السماح بالتمرير العمودي للصورة إذا كانت طويلة */
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
         }
 
         .swiper-zoom-container {
             width: 100%;
-            height: 100%; /* تم التعديل ليكون 100% بدلاً من auto */
+            min-height: 100%;
             display: flex;
             justify-content: center;
-            align-items: center; /* تم التعديل للمنتصف */
+            align-items: center;
+            margin: auto;
         }
 
         .swiper-slide img {
             width: 100% !important; 
-            height: 100% !important; /* تم التعديل لاحتواء الصورة في الشاشة */
-            max-width: 100vw;
-            max-height: 100dvh; /* تم التعديل لمنع التمدد خارج الشاشة */
-            object-fit: fill; /* تم التعديل لتعبئة الشاشة بالكامل بدون حواف */
+            height: auto !important; /* أخذ التناسب (العرض الحقيقي) للصورة بدون تمطيط */
+            max-width: 100%;
+            object-fit: contain; 
             display: block;
-            margin: auto;
+            margin: auto 0; /* لتفادي قطع الصورة من الأعلى عند المنتصف */
             user-select: none;
             -webkit-user-drag: none;
             transition: transform 0.3s ease;
