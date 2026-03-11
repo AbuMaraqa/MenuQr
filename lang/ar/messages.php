@@ -44,4 +44,11 @@ return [
     'menu_pages' => 'صفحات القوائم',
     'category' => 'تصنيف',
     'categories' => 'التصنيفات',
+
+    'site_title' => 'عنوان الموقع',
+    'categories_title' => 'عنوان التصنيفات',
+
+    'background_image' => 'صورة الخلفية',
+
+    'swiper_effect' => 'تأثير السحب',
 ];

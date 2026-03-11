@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Chakoza Menu</title>
+    <title>{{ isset($setting) && $setting->site_title ? $setting->site_title : 'Chakoza Menu' }}</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -74,6 +74,17 @@
         #categories-section::-webkit-scrollbar-thumb {
             background-color: #f59e0b; 
             border-radius: 10px;
+        }
+
+        .main-categories-title {
+            color: #f59e0b;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 0 4px 6px rgba(0,0,0,0.8);
+            margin: 10px 0 30px 0;
+            width: 100%;
+            letter-spacing: 1px;
         }
 
         .categories-grid {
@@ -364,6 +375,9 @@
 <div class="app-container">
 
     <div id="categories-section">
+        @if(isset($setting) && $setting->categories_title)
+            <h1 class="main-categories-title">{{ $setting->categories_title }}</h1>
+        @endif
         <div class="categories-grid">
             @foreach($categories as $category)
                 <div class="category-card" onclick="openCategory({{ $category->id }})">
@@ -471,8 +485,10 @@
 
         const isIOS = (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
 
+        const selectedEffect = "{{ isset($setting) && $setting->swiper_effect ? $setting->swiper_effect : 'flip' }}";
+
         const swiperConfig = {
-            effect: 'flip',
+            effect: selectedEffect,
             grabCursor: true,
             loop: false,
             speed: 800,
@@ -496,9 +512,27 @@
             }
         };
 
-        if (isIOS) {
-            // تأثير بديل رائع يشبه تقليب الصفحات يعمل بشكل مثالي مع الـ Zoom في غوغل و سفاري
-            swiperConfig.creativeEffect = {
+        if (selectedEffect === 'flip') {
+            if (isIOS) {
+                // تأثير بديل رائع يشبه تقليب الصفحات يعمل بشكل مثالي مع الـ Zoom في غوغل و سفاري
+                swiperConfig.effect = 'creative';
+                swiperConfig.creativeEffect = {
+                    prev: {
+                        shadow: true,
+                        translate: ['-20%', 0, -1],
+                    },
+                    next: {
+                        translate: ['100%', 0, 0],
+                    },
+                };
+            } else {
+                // تأثير القلب الافتراضي للأجهزة الأخرى
+                swiperConfig.flipEffect = {
+                    slideShadows: false,
+                };
+            }
+        } else if (selectedEffect === 'creative') {
+             swiperConfig.creativeEffect = {
                 prev: {
                     shadow: true,
                     translate: ['-20%', 0, -1],
@@ -507,9 +541,8 @@
                     translate: ['100%', 0, 0],
                 },
             };
-        } else {
-            // تأثير القلب الافتراضي للأجهزة الأخرى
-            swiperConfig.flipEffect = {
+        } else if (selectedEffect === 'cards') {
+            swiperConfig.cardsEffect = {
                 slideShadows: false,
             };
         }

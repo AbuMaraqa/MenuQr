@@ -11,7 +11,10 @@ class Setting extends Model implements HasMedia
 {
     use InteractsWithMedia;
     protected $fillable = [
-        'id'
+        'id',
+        'site_title',
+        'categories_title',
+        'swiper_effect',
     ];
 
     public function registerMediaConversions(?Media $media = null): void
