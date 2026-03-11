@@ -51,4 +51,6 @@ return [
     'background_image' => 'صورة الخلفية',
 
     'swiper_effect' => 'تأثير السحب',
+
+    'sound_effect' => 'التأثير الصوتي',
 ];

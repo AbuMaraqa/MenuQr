@@ -8,7 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-    <audio id="flip-sound" src="{{ asset('./assets/page-flip.mp3') }}" preload="auto"></audio>
+    @if(!isset($setting) || $setting->sound_effect !== 'none')
+    <audio id="flip-sound" src="{{ asset('./assets/' . (isset($setting) && $setting->sound_effect ? $setting->sound_effect : 'page-flip.mp3')) }}" preload="auto"></audio>
+    @endif
 
     <style>
         * {

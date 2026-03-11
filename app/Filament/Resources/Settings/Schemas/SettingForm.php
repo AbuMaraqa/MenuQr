@@ -29,6 +29,16 @@ class SettingForm
                     ])
                     ->default('flip')
                     ->required(),
+                \Filament\Forms\Components\Select::make('sound_effect')
+                    ->label(__('messages.sound_effect'))
+                    ->options([
+                        'page-flip.mp3' => 'صوت تقليب الصفحات (Page Flip)',
+                        'slide.wav' => 'صوت السحب (Slide)',
+                        'card.wav' => 'صوت البطاقات (Card)',
+                        'none' => 'بدون صوت (Mute)',
+                    ])
+                    ->default('page-flip.mp3')
+                    ->required(),
                 SpatieMediaLibraryFileUpload::make('background')
                     ->collection('background')
                     ->disk('public')

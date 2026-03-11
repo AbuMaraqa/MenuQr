@@ -15,6 +15,7 @@ class Setting extends Model implements HasMedia
         'site_title',
         'categories_title',
         'swiper_effect',
+        'sound_effect',
     ];
 
     public function registerMediaConversions(?Media $media = null): void
