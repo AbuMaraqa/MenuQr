@@ -33,7 +33,7 @@ class SettingForm
                     ->collection('background')
                     ->disk('public')
                     ->label(__('messages.background_image'))
-                    ->required(),
+                    ,
             ]);
     }
 }
