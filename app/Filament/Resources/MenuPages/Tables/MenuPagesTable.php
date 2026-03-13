@@ -36,7 +36,7 @@ class MenuPagesTable
                     DeleteBulkAction::make(),
                 ]),
             ])
-            ->defaultSort('sort_order')
+            ->defaultSort('created_at', 'desc')
             ->reorderable('sort_order');
     }
 }
