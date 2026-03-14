@@ -263,32 +263,33 @@
 
         .swiper {
             width: 100%;
+            height: 100%;
         }
 
         .swiper-slide {
             background-color: transparent;
-            display: block;
-            overflow-y: auto; /* السماح بالتمرير العمودي للصورة إذا كانت طويلة */
-            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
             -webkit-overflow-scrolling: touch;
         }
 
         .swiper-zoom-container {
             width: 100%;
-            min-height: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: auto;
         }
 
         .swiper-slide img {
-            width: 100% !important; 
-            height: auto !important; /* أخذ التناسب (العرض الحقيقي) للصورة بدون تمطيط */
             max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
             object-fit: contain; 
             display: block;
-            margin: auto 0; /* لتفادي قطع الصورة من الأعلى عند المنتصف */
             user-select: none;
             -webkit-user-drag: none;
             transition: transform 0.3s ease;
