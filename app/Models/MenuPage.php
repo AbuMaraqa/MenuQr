@@ -23,9 +23,8 @@ class MenuPage extends Model implements HasMedia
     {
         $this
             ->addMediaConversion('image')
-            ->fit(Fit::Contain)
             ->format('webp')
-            ->quality(80);
+            ->quality(70);
     }
 
     public function category()

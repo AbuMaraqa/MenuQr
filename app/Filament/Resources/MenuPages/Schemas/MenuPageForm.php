@@ -34,6 +34,7 @@ class MenuPageForm
                     ->image()
                     ->disk('public')
                     ->collection('image')
+                    ->conversion('image')
                     ->imageEditor()
                     ->required()
                     ->columnSpanFull(),

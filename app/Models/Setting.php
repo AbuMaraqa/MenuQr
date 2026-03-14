@@ -22,8 +22,7 @@ class Setting extends Model implements HasMedia
     {
         $this
             ->addMediaConversion('background')
-            ->fit(Fit::Contain)
             ->format('webp')
-            ->quality(80);
+            ->quality(70);
     }
 }
