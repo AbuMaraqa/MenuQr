@@ -84,9 +84,23 @@
             font-weight: bold;
             text-align: center;
             text-shadow: 0 4px 6px rgba(0,0,0,0.8);
-            margin: 10px 0 30px 0;
+            margin: 10px 0 10px 0;
             width: 100%;
             letter-spacing: 1px;
+        }
+
+        .categories-header-img-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .categories-header-img {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
         }
 
         .categories-grid {
@@ -380,6 +394,14 @@
     <div id="categories-section">
         @if(isset($setting) && $setting->categories_title)
             <h1 class="main-categories-title">{{ $setting->categories_title }}</h1>
+        @else
+            <h1 class="main-categories-title" style="visibility: hidden;">&nbsp;</h1>
+        @endif
+
+        @if(isset($setting) && $setting->getFirstMediaUrl('categories_image'))
+            <div class="categories-header-img-container">
+                <img src="{{ $setting->getFirstMediaUrl('categories_image') }}" class="categories-header-img" alt="Header Image">
+            </div>
         @endif
         <div class="categories-grid">
             @foreach($categories as $category)
@@ -486,8 +508,6 @@
             swiperWrapper.appendChild(slideDiv);
         });
 
-        const isIOS = (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
-
         const selectedEffect = "{{ isset($setting) && $setting->swiper_effect ? $setting->swiper_effect : 'flip' }}";
 
         const swiperConfig = {
@@ -516,24 +536,9 @@
         };
 
         if (selectedEffect === 'flip') {
-            if (isIOS) {
-                // تأثير بديل رائع يشبه تقليب الصفحات يعمل بشكل مثالي مع الـ Zoom في غوغل و سفاري
-                swiperConfig.effect = 'creative';
-                swiperConfig.creativeEffect = {
-                    prev: {
-                        shadow: true,
-                        translate: ['-20%', 0, -1],
-                    },
-                    next: {
-                        translate: ['100%', 0, 0],
-                    },
-                };
-            } else {
-                // تأثير القلب الافتراضي للأجهزة الأخرى
-                swiperConfig.flipEffect = {
-                    slideShadows: false,
-                };
-            }
+            swiperConfig.flipEffect = {
+                slideShadows: false,
+            };
         } else if (selectedEffect === 'creative') {
              swiperConfig.creativeEffect = {
                 prev: {

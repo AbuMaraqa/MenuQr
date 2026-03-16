@@ -42,8 +42,11 @@ class SettingForm
                 SpatieMediaLibraryFileUpload::make('background')
                     ->collection('background')
                     ->disk('public')
-                    ->label(__('messages.background_image'))
-                    ,
+                    ->label(__('messages.background_image')),
+                SpatieMediaLibraryFileUpload::make('categories_image')
+                    ->collection('categories_image')
+                    ->disk('public')
+                    ->label(__('صورة قسم التصنيفات')),
             ]);
     }
 }
