@@ -25,6 +25,11 @@ class MenuPageForm
                     ->preload()
                     ->required(),
 
+                TextInput::make('sort_order')
+                    ->label(__('messages.sort_order'))
+                    ->numeric()
+                    ->default(fn () => \App\Models\MenuPage::max('sort_order') + 1),
+
                 Toggle::make('is_active')
                     ->label(__('messages.is_active'))
                     ->default(true),

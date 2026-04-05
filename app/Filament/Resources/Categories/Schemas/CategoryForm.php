@@ -33,7 +33,7 @@ class CategoryForm
                 TextInput::make('sort_order')
                     ->label(__('messages.category_sort_order'))
                     ->numeric()
-                    ->default(0),
+                    ->default(fn () => \App\Models\Category::max('sort_order') + 1),
 
                 Toggle::make('is_active')
                     ->label(__('messages.category_is_active'))
