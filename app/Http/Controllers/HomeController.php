@@ -14,7 +14,6 @@ class HomeController extends Controller
             }, 'menuPages.media'])
             ->where('is_active', true)
             ->orderBy('sort_order')
-            ->orderBy('id', 'asc')
             ->get();
 
         $setting = \App\Models\Setting::first();
