@@ -7,7 +7,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
-use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class MenuPagesTable
@@ -26,7 +26,9 @@ class MenuPagesTable
                     ->label(__('messages.category'))
             ])
             ->filters([
-                //
+                SelectFilter::make('category_id')
+                    ->label(__('messages.category'))
+                    ->relationship('category', 'name')
             ])
             ->recordActions([
                 EditAction::make(),
